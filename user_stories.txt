@@ -1,0 +1,55 @@
+Users
+=====
+
+As a User
+So I can access the site
+I need to be able to log in/out
+
+As a User
+So i can socialize
+I need to be able to add friends
+
+As a User
+So i can interact with others
+I need to be able to create a post
+
+As a User
+So i can voice my opinion
+I need to be able to comment on posts
+
+As a User
+So i can make money
+I need to be able to advertise products sold through the site
+
+As a User
+So i can share/advertise products
+I need to upload photos
+
+As a User
+So i can react to my friends posts/comments
+I need to be able to like them
+
+As a User
+So i can see my details
+I need to be able to view my profile
+
+As a User
+So i can keep my details up to date
+I need to be able to edit my profile
+
+As a User
+So i can buy products through my friends advertisments
+I need to be able to buy products
+
+As a user, 
+so that I can remove photos/posts I no longer wish to share, 
+I should be able to delete them.
+
+As a user, 
+so that I can change photos/posts I no longer wish to share, 
+I should be able to edit them.
+
+As a User
+So I can make money
+I need to be able to sell my items
+
