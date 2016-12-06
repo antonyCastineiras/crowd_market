@@ -12,8 +12,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create(post_params)
-    redirect_to posts_path
+    @user = current_user
+    @post = @user.posts.new(post_params)
+    if @post.save
+      redirect_to posts_path
+    else
+      flash[:notice] = 'Post did not save'
+      render 'new'
+    end
   end
 
   def show

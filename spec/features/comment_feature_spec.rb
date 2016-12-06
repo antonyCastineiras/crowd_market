@@ -8,8 +8,8 @@ feature 'comments' do
 
   context 'creating comments' do
     it 'users can leave a comment' do
-      click_link 'Comments'
-      fill_in "Comments", with: 'Testing'
+      click_link 'Comment'
+      fill_in "comment_text", with: 'Testing'
       click_button 'Leave Comment'
       expect(current_path).to eq '/posts'
       expect(page).to have_content('Testing')

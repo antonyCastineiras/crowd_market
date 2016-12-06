@@ -3,6 +3,12 @@
     <h2> <%= link_to post.text, post_path(post) %> </h2>
     <%= link_to "Edit #{post.text}", edit_post_path(post) %>
     <%= link_to "Delete #{post.text}", post_path(post), method: :delete %>
+    <%= link_to "Comment", new_post_comment_path(post) %>
+    <% if post.comments.any? %>
+      <% post.comments.each do |comment| %>
+        <p><%= comment.text %></p>
+      <% end %>
+    <% end %>
   <% end %>
 <% else %>
   No posts have been added!
