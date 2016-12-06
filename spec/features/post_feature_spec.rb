@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'posts' do
+  before do
+    sign_up
+  end
 
   context 'no posts have yet been created' do
     scenario 'should display create a post' do
