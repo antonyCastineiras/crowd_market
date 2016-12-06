@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { :registrations => "users/registrations",
-                                    :sessions => "users/sessions" }
+                                    :sessions => "users/sessions",
+                                    :pages => "users/pages"}
 
   root "posts#index"
 
@@ -9,10 +10,15 @@ Rails.application.routes.draw do
   # 	root to: "devise/sessions#new"
   #   resources :posts
 	# end
+
   resources :posts do
-  resources :comments 
+  	resources :comments 
   end
-  resources :users
+  
+  resources :users do
+    resources :images
+  end
+  
 
 
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'

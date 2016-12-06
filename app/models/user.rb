@@ -6,4 +6,10 @@ class User < ApplicationRecord
 
   has_many :posts       
   has_many :comments
+  has_many :images
+
+  def has_image?
+  	!self.images.empty?
+  end
+  
 end
