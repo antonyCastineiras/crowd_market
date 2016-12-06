@@ -9,6 +9,11 @@
   </head>
 
   <body>
+		<% if current_user %>
+  		<div class="sign-out">
+  			<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+  		</div>
+  	<% end %>
     <%= notice %>
     <%= yield %>
   </body>
