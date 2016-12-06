@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :images
 
+  def has_image?
+  	!self.images.empty?
+  end
+
 end

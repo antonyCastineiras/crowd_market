@@ -1,9 +1,15 @@
 <div class="user-details">
 
+	<% if @user.has_image? %>
+		<%= image_tag(@user.images.first.file, class: "user-profile-image") %>
+	<% else %>
+		<%= image_tag("default_user_image.png", class: "user-profile-image") %>
+	<% end %>
+
 	<h1><%= @user.username %></h1>
 	<h2><%= @user.email %></h2>
 	<h3><%= "#{@user.first_name}  #{@user.last_name}"%></h3>
-	<%= form_for @image, url: user_images_path(current_user), html: { multipart: true } do |form| %>
+	<%= form_for(@image, url: user_images_path(current_user), html: { multipart: true }) do |form| %>
 		<div class="field">
 			<%= form.label :file %> <i>(choose an image)</i><br />
 			<%= form.file_field :file %> <br />
@@ -12,4 +18,4 @@
 			<%= form.submit "Upload" %>
 		</div>
 	<% end %>
-	</div>
+</div>

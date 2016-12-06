@@ -1,10 +1,13 @@
 class ImagesController < ApplicationController
   def create
-    @image = Image.create(image_params)
+    @image = Image.new(image_params)
+    @image.user = current_user
     if @image.save
+      flash[:notice] = "Success"
       redirect_to user_profile_path(current_user)
     else
-      flash[:notice]
+      flash[:notice] = "Unable to save image"
+      redirect_to user_profile_path(current_user)
     end
   end
 
