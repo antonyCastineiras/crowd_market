@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'posts' do
+  before do
+    sign_up
+  end
 
   context 'no posts have yet been created' do
     scenario 'should display create a post' do
@@ -61,7 +64,7 @@ feature 'posts' do
   context 'deleting posts' do
     before { Post.create text: 'Hello'}
     scenario 'removes a post when a user clicks delete' do
-      visit '/posts'
+      visit "/posts"
       click_link 'Delete'
       expect(current_path).to eq '/posts'
       expect(page).to have_content 'Post deleted'
