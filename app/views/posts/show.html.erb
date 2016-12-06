@@ -1,2 +1,12 @@
 <p><%= @post.text %></p>
+
+<% if @post.comments.any? %>
+  <% @post.comments.each do |comment| %>
+  <div class ="comment">
+    <p><%= comment.text %></p>
+  </div>
+  <% end %>
+
+<% end %>
+
 <%= link_to "Comment", new_post_comment_path(@post) %>
