@@ -64,7 +64,7 @@ feature 'posts' do
   context 'deleting posts' do
     before { Post.create text: 'Hello'}
     scenario 'removes a post when a user clicks delete' do
-      visit '/posts'
+      visit "/posts"
       click_link 'Delete'
       expect(current_path).to eq '/posts'
       expect(page).to have_content 'Post deleted'
