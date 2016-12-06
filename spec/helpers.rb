@@ -8,3 +8,10 @@ def sign_up
   fill_in('Password confirmation', with: '123456')
   click_button('Sign up')
 end
+
+def create_post
+  visit '/posts'
+  click_link 'Create a post'
+  fill_in 'Text', with: 'Hello World!'
+  click_button 'Create Post'
+end

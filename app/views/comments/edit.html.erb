@@ -1,0 +1,8 @@
+<h1>Edit your comment</h1>
+  <%= form_for [@post, @comment], html: { :class => "pure-form pure-form-stacked"}  do |f| %>
+    <%= field_set_tag do %>
+      <%= f.label :comments %>
+      <%= f.text_area :comments, id: "comment_comments" %>
+      <%= f.submit 'Edit Comment', class: "pure-button pure-button-primary" %>
+    <% end %>
+  <% end %>

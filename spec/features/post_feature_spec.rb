@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'posts' do
   before do
     sign_up
+    @user = User.create(email: 'abc@123.com', password: '123456')
   end
 
   context 'no posts have yet been created' do
@@ -15,7 +16,7 @@ feature 'posts' do
 
   context 'post has been created' do
     before do
-      Post.create(text: 'Hello World!')
+      create_post
     end
 
     scenario 'display posts' do
@@ -38,22 +39,20 @@ feature 'posts' do
   end
 
   context 'viewing posts' do
-
-    let!(:hello_world){ Post.create(text:'Hello world!') }
+    let!(:hello_world){ @user.posts.create(text:'Hello World!') }
     scenario 'lets a user view a post' do
       visit '/posts'
-      click_link 'Hello world!'
-      expect(page).to have_content 'Hello world!'
+      click_link 'Hello World!'
+      expect(page).to have_content 'Hello World!'
       expect(current_path).to eq "/posts/#{hello_world.id}"
     end
   end
 
   context 'editing posts' do
-
-    before { Post.create text: 'Hello'}
     scenario 'let a user edit a post' do
+      create_post
       visit '/posts'
-      click_link 'Edit Hello'
+      click_link 'Edit Hello World!'
       fill_in 'Text', with: 'Goodbye'
       click_button 'Update Post'
       expect(page).to have_content 'Goodbye'
@@ -62,8 +61,8 @@ feature 'posts' do
   end
 
   context 'deleting posts' do
-    before { Post.create text: 'Hello'}
     scenario 'removes a post when a user clicks delete' do
+      create_post
       visit "/posts"
       click_link 'Delete'
       expect(current_path).to eq '/posts'

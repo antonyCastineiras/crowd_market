@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   # 	root to: "devise/sessions#new"
   #   resources :posts
 	# end
-  resources :posts
-  resources :users do
+  resources :posts do
+  resources :comments 
   end
+  resources :users
+
 
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
 
