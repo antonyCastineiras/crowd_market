@@ -1,17 +1,23 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <h2> <%= link_to post.text, post_path(post) %> </h2>
+    <% if post.image_file_name.nil? %>
+      <h2> <%= link_to post.text, post_path(post) %> </h2>
+    <% else %>
+      <h2> <%= link_to post.text, post_path(post) %> </h2>
+      <%= link_to post_path(post) do %>
+        <p><%= image_tag post.image.url(:medium) %></p>
+      <% end %>
+    <% end %>
     <%= link_to "Edit #{post.text}", edit_post_path(post) %>
     <%= link_to "Delete #{post.text}", post_path(post), method: :delete %>
-    <%= link_to "Comment", new_post_comment_path(post) %>
     <% if post.comments.any? %>
       <% post.comments.each do |comment| %>
         <p><%= comment.text %></p>
       <% end %>
     <% end %>
+    <%= link_to "Comment", new_post_comment_path(post) %>
   <% end %>
 <% else %>
   No posts have been added!
 <% end %>
-
-<a href='posts/new'>Create a post</a>
+<p><a href='posts/new'>Create a post</a></p>
