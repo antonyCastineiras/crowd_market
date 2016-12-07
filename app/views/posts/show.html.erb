@@ -2,18 +2,20 @@
   <h2><%= @post.text %></h2>
 <% else %>
   <h2><%= @post.text %></h2>
-  <p><%= image_tag @post.image.url(:medium) %></p>
+  <p><%= image_tag @post.image.url(:large) %></p>
 <% end %>
-  <%= link_to "Edit #{@post.text}", edit_post_path(@post) %>
-  <%= link_to "Delete #{@post.text}", post_path(@post), method: :delete %>
+  <%= link_to "Edit", edit_post_path(@post) %>
+  <%= link_to "Delete", post_path(@post), method: :delete %>
 <% if @post.comments.any? %>
   <% @post.comments.each do |comment| %>
   <div class ="comment">
     <p><%= comment.text %></p>
+    <%= link_to "Edit", edit_comment_url(comment) %> |
+    <%= link_to "Delete", comment_path(comment), method: :delete %>
   </div>
   <% end %>
 <% end %>
-<%= form_for [@post, @post.comments.new] do |f| %>
+<%= form_for [@post, @post.comments.new ] do |f| %>
  <%= f.text_area :text, placeholder: 'Add a comment' %>
  <%= f.submit 'Comment' %>
-<% end %><br>
+<% end %>

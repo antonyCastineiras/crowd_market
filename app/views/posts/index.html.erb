@@ -8,8 +8,8 @@
         <p><%= image_tag post.image.url(:medium) %></p>
       <% end %>
     <% end %>
-    <%= link_to "Edit #{post.text}", edit_post_path(post) %>
-    <%= link_to "Delete #{post.text}", post_path(post), method: :delete %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= link_to "Delete", post_path(post), method: :delete %>
     <% if post.comments.any? %>
       <% post.comments.each do |comment| %>
         <p><%= comment.text %></p>
