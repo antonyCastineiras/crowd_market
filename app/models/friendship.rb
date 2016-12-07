@@ -1,7 +1,5 @@
 class Friendship < ApplicationRecord
 
-	attr_accessor :status, :accepted_at
-
 	belongs_to :user
 	belongs_to :friend, :class_name => "User"
 
@@ -23,9 +21,19 @@ class Friendship < ApplicationRecord
 	end
 
 	def self.accept_one_side(user,friend,accepted_at)
-		request = where("user_id = #{user.id} AND friend_id = #{friend.id}")
-		request.status = 'accepted'
-		request.accepted_at = accepted_at
-		request.save!
+		request = find_by_user_id_and_friend_id(user,friend)
+		request.update(:status => 'accepted', :accepted_at => accepted_at)
+	end
+
+	def self.reject(user,friend)
+		transaction do
+			reject_one_side(user,friend)
+			reject_one_side(friend,user)
+		end
+	end
+
+	def self.reject_one_side(user,friend)
+		request = find_by_user_id_and_friend_id(user,friend)
+		request.update(:status => 'rejected')
 	end
 end
