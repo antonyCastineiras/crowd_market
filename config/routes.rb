@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   #   resources :posts
 	# end
 
-  resources :posts do
-  	resources :comments 
+  resources :posts, shallow: true do
+  	resources :comments
   end
-  
+
   resources :users do
     resources :images
   end
-  
+
 
 
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
