@@ -1,11 +1,11 @@
-def sign_up
+def sign_up(first_name, last_name, username, email, password)
   visit('users/sign_up')
-  fill_in('user_first_name', with: 'Testy')
-  fill_in('user_last_name', with: 'Tester')
-  fill_in('Username', with: 'Test')
-  fill_in('Email', with: 'test@test.com')
-  fill_in('Password', with: '123456')
-  fill_in('Password confirmation', with: '123456')
+  fill_in('user_first_name', with: first_name)
+  fill_in('user_last_name', with: last_name)
+  fill_in('Username', with: username)
+  fill_in('Email', with: email)
+  fill_in('Password', with: password)
+  fill_in('Password confirmation', with: password)
   click_button('Sign up')
 end
 

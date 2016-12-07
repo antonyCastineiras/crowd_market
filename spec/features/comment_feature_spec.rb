@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'comments' do
   before do
-    sign_up
+    sign_up(first_name="Testy",last_name="Tester",username="Test",email="test@test.com",password="password")
     create_post
   end
 
