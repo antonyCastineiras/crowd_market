@@ -15,7 +15,10 @@
         <p><%= comment.text %></p>
       <% end %>
     <% end %>
-    <%= link_to "Comment", new_post_comment_path(post) %>
+    <%= form_for [post, post.comments.new] do |f| %>
+     <%= f.text_area :text, placeholder: 'Add a comment' %>
+     <%= f.submit 'Comment' %>
+    <% end %>
   <% end %>
 <% else %>
   No posts have been added!

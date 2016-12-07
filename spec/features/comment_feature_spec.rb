@@ -8,6 +8,7 @@ feature 'comments' do
 
   context 'creating comments' do
     it 'users can leave a comment' do
+      print page.body
       click_link 'Comment'
       fill_in "comment_text", with: 'Testing'
       click_button 'Leave Comment'
