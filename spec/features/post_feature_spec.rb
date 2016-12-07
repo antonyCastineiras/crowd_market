@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'posts' do
   before do
-    sign_up
+    sign_up(first_name="Testy",last_name="Tester",username="Test",email="test@test.com",password="password")
     @user = User.create(email: 'abc@123.com', password: '123456')
   end
 
