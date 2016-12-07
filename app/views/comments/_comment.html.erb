@@ -1,0 +1,6 @@
+<p>
+  <strong>Comment:</strong>
+  <%= comment.text %>
+</p>
+<%= link_to "Edit", edit_comment_url(comment) %> |
+<%= link_to "Delete", comment_path(comment), method: :delete %>

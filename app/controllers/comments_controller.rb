@@ -9,12 +9,16 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.create(comment_params)
     @comment.user = current_user
-    if @comment.save
-      redirect_to (:back)
-    else
-      render :new
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to :back }
+        format.js
+      else
+        format.html { render :action => "new" }
+        format.js
+      end
     end
   end
 
