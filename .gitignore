@@ -15,3 +15,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+/public/system/posts/images/
+/public/system/users/images/
+/public/images

@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      redirect_to ('/posts')
+      redirect_to (:back)
     else
       render :new
     end
