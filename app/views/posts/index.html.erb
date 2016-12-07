@@ -10,14 +10,12 @@
     <% end %>
     <%= link_to "Edit", edit_post_path(post) %>
     <%= link_to "Delete", post_path(post), method: :delete %>
-    <% if post.comments.any? %>
-      <% post.comments.each do |comment| %>
-        <p><%= comment.text %></p>
-        <%= link_to "Edit", edit_comment_path(comment) %> |
-        <%= link_to "Delete", comment_path(comment), method: :delete %>
-      <% end %>
-    <% end %>
-    <%= form_for [post, post.comments.new] do |f| %>
+
+    <div id='comments_div'>
+      <%= render post.comments %>
+    </div>
+
+    <%= form_for [post, post.comments.new ], remote: true do |f| %>
      <%= f.text_area :text, placeholder: 'Add a comment' %>
      <%= f.submit 'Comment' %>
     <% end %>

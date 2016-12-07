@@ -52,7 +52,7 @@ feature 'posts' do
     scenario 'let a user edit a post' do
       create_post
       visit '/posts'
-      click_link 'Edit Hello World!'
+      click_link 'Edit'
       fill_in 'Text', with: 'Goodbye'
       click_button 'Update Post'
       expect(page).to have_content 'Goodbye'
