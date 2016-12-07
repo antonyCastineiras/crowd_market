@@ -12,13 +12,15 @@ Rails.application.routes.draw do
 	# end
 
   resources :posts do
-  	resources :comments 
+  	resources :comments
+    member do
+    put "like", to: "posts#upvote"
+    end
   end
-  
   resources :users do
     resources :images
   end
-  
+
 
 
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
