@@ -6,8 +6,17 @@
       <h2> <%= link_to post.text, post_path(post) %> </h2>
       <%= link_to post_path(post) do %>
         <p><%= image_tag post.image.url(:medium) %></p>
-      <% end %>
+        <% end %>
     <% end %>
+    <% if @user %>
+    <% elsif current_user %>
+        <% if current_user.voted_up_on?(post) %>
+          <%= link_to "Like", dislike_post_path(post), method: :put %>
+        <% else %>
+          <%= link_to "Like", like_post_path(post), method: :put %>
+        <% end %>
+    <% end %>
+    <%= "Likes: #{post.get_upvotes.size}" %>
     <%= link_to "Edit", edit_post_path(post) %>
     <%= link_to "Delete", post_path(post), method: :delete %>
 

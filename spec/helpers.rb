@@ -15,3 +15,12 @@ def create_post
   fill_in 'Text', with: 'Hello World!'
   click_button 'Create Post'
 end
+
+def like_post
+  visit '/'
+  click_link 'Like'
+end
+
+def sign_out
+  click_link 'Sign out'
+end  
