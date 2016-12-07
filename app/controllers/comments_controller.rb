@@ -9,12 +9,16 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.create(comment_params)
     @comment.user = current_user
-    if @comment.save
-      redirect_to ('/posts')
-    else
-      render :new
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to :back }
+        format.js
+      else
+        format.html { render :action => "new" }
+        format.js
+      end
     end
   end
 
@@ -32,7 +36,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = 'Comment Deleted'
-    redirect_to posts_path
+    redirect_to :back
   end
 
   private

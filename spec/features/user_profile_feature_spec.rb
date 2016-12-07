@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Profile page' do
 
   before do
-    sign_up
+    sign_up(first_name="Testy",last_name="Tester",username="Test",email="test@test.com",password="password")
   end
 
   context 'User has signed in' do

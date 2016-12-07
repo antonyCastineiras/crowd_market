@@ -1,6 +1,13 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <h2> <%= link_to post.text, post_path(post) %> </h2>
+    <% if post.image_file_name.nil? %>
+      <h2> <%= link_to post.text, post_path(post) %> </h2>
+    <% else %>
+      <h2> <%= link_to post.text, post_path(post) %> </h2>
+      <%= link_to post_path(post) do %>
+        <p><%= image_tag post.image.url(:medium) %></p>
+        <% end %>
+    <% end %>
     <% if @user %>
     <% elsif current_user %>
         <% if current_user.voted_up_on?(post) %>
@@ -12,15 +19,17 @@
     <%= "Likes: #{post.get_upvotes.size}" %>
     <%= link_to "Edit", edit_post_path(post) %>
     <%= link_to "Delete", post_path(post), method: :delete %>
-    <%= link_to "Comment", new_post_comment_path(post) %>
-    <% if post.comments.any? %>
-      <% post.comments.each do |comment| %>
-        <p><%= comment.text %></p>
-      <% end %>
+
+    <div id='comments_div'>
+      <%= render post.comments %>
+    </div>
+
+    <%= form_for [post, post.comments.new ], remote: true do |f| %>
+     <%= f.text_area :text, placeholder: 'Add a comment' %>
+     <%= f.submit 'Comment' %>
     <% end %>
   <% end %>
 <% else %>
   No posts have been added!
 <% end %>
-
-<a href='posts/new'>Create a post</a>
+<p><a href='posts/new'>Create a post</a></p>

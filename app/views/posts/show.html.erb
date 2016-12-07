@@ -1,12 +1,17 @@
-<p><%= @post.text %></p>
-
-<% if @post.comments.any? %>
-  <% @post.comments.each do |comment| %>
-  <div class ="comment">
-    <p><%= comment.text %></p>
-  </div>
-  <% end %>
-
+<% if @post.image_file_name.nil? %>
+  <h2><%= @post.text %></h2>
+<% else %>
+  <h2><%= @post.text %></h2>
+  <p><%= image_tag @post.image.url(:large) %></p>
 <% end %>
+  <%= link_to "Edit", edit_post_path(@post) %>
+  <%= link_to "Delete", post_path(@post), method: :delete %>
 
-<%= link_to "Comment", new_post_comment_path(@post) %>
+<div id='comments_div'>
+  <%= render @post.comments %>
+</div>
+
+<%= form_for [@post, @post.comments.new ], remote: true do |f| %>
+ <%= f.text_area :text, placeholder: 'Add a comment' %>
+ <%= f.submit 'Comment' %>
+<% end %>
