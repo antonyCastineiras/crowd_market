@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = 'Comment Deleted'
-    redirect_to posts_path
+    redirect_to :back
   end
 
   private
