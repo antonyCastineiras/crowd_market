@@ -1,8 +1,13 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
     <h2> <%= link_to post.text, post_path(post) %> </h2>
-    <%= link_to "Upvote", like_post_path(post), method: :put %>
+    <% if current_user.voted_up_on? post %>
+    <%= "anything" %>
+    <% end %>
+    <%= link_to "Like", like_post_path(post), method: :put %>
     <%= post.get_upvotes.size %>
+    <%= link_to "Dislike", dislike_post_path(post), method: :put %>
+
     <%= link_to "Edit", edit_post_path(post) %>
     <%= link_to "Delete", post_path(post), method: :delete %>
     <%= link_to "Comment", new_post_comment_path(post) %>
