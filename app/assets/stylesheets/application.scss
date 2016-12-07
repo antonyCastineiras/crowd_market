@@ -10,6 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Lato');
+body {
+  padding-top: 100px;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Indie Flower', cursive;
+}

@@ -3,18 +3,31 @@
   <head>
     <title>CrowdMarket</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-		<% if current_user %>
-  		<div class="sign-out">
-  			<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-  		</div>
-  	<% end %>
-    <%= notice %>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+     <div class="container">
+       <%= link_to "sample app", '#', id: "logo" %>
+       <nav>
+         <ul class="nav navbar-nav navbar-right">
+           <li><%= link_to "Home", '/'   %></li>
+           <li><%= link_to "Help", "#" %></li>
+           <% if current_user %>
+         		<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Sign in", new_user_session_url %></li>
+         	<% end %>
+         </ul>
+       </nav>
+     </div>
+   </header>
+   <div class="container">
+     <%= notice %>
+     <%= yield %>
+   </div>
+
   </body>
 </html>
