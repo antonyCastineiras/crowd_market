@@ -52,7 +52,7 @@
                   <% else %>
                     <%= image_tag("default_user_image.png", size: "50") %>
                   <% end %>
-                  <span><%= user.email %></span>
+                  <span><%= user.full_name %></span>
                   <%= link_to "Accept Request", user_friendship_accept_path(current_user,user) %>
                   <%= link_to "Reject Request", user_friendship_reject_path(current_user,user) %>
                 <% end %>

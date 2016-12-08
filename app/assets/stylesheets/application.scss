@@ -30,3 +30,31 @@ body {
   font-size: 120%;
   bottom: 0;
 }
+
+/*=====================
+		Profile page styles
+=======================
+*/
+
+.user-details-container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.user-profile-image-container {
+	display:inline-block;
+	vertical-align: top;
+}
+
+.user-details {
+	display: inline-block;
+}
+
+.user-friend-container > * {
+	display: block;
+}
+
+.user-friend-container .user-profile-image {
+	min-width: 50px;
+	min-height: 50px;
+}
