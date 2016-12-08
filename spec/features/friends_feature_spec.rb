@@ -43,5 +43,20 @@ feature 'Friends' do
 			expect(friend.friends.count).to eq 0
 		end
 
+		scenario 'a friend can be deleted' do
+			friend = User.create(email: "test2@test.com", password: "password", password_confirmation: "password")
+			fill_in 'friend_email', with: friend.email
+			click_button('Add Friend')
+			click_link('Sign out')
+			visit('/users/sign_in')
+			fill_in 'Email', with: friend.email
+			fill_in 'Password', with: friend.password
+			click_button("Log in")
+			click_link("Friend Requests")
+			click_link("Accept Request")
+			click_link("Remove Friend")
+			expect(friend.friends.count).to eq 0
+		end
+
 	end
 end

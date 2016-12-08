@@ -17,6 +17,12 @@ class FriendshipsController < ApplicationController
 		redirect_to user_profile_path(current_user)
 	end
 
+	def delete
+		friend = User.where(id: params[:friend_id])
+		Friendship.remove(current_user, friend)
+		redirect_to user_profile_path(current_user)
+	end
+
 	def friendship_params
 		params.require(:friendship).permit(:friend_email, :friend_id)
 	end

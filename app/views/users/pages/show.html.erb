@@ -61,6 +61,7 @@
 			<%= image_tag("default_user_image.png", size: "50", class: "user-profile-image") %>
 		<% end %>
 		<span><%= friend.email %></span>
+		<%= link_to "Remove Friend", user_friendship_delete_path(current_user,friend) %>
 	<% end %>	
 </div>
 
