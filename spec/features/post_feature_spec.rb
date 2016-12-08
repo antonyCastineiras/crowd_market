@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'posts' do
   before do
-    sign_up(first_name="Testy",last_name="Tester",username="Test",email="test@test.com",password="password")
+    sign_up(first_name="Dave",last_name="Jones",username="DJ246",email="DJ246@test.com",password="password")
     @user = User.create(email: 'abc@123.com', password: '123456')
   end
 
@@ -71,4 +71,21 @@ feature 'posts' do
     end
   end
 
+  context 'viewing posts with names' do
+    it 'allows users to see the name of the person who created the post' do
+      create_post
+      expect(current_path).to eq '/posts'
+      expect(page).to have_content ('Dave Jones')
+    end
+  end
+
+  context 'click a user\'s profile' do
+    it 'allows you to visit a user\'s profile via clicking on their name when they leave a comment' do
+      create_post
+      visit '/posts'
+      click_link 'Dave Jones'
+      expect(page).to have_content ('DJ246')
+      expect(page).not_to have_content ('Hello World!')
+    end
+  end
 end
