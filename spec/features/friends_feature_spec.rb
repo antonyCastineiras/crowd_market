@@ -12,7 +12,7 @@ feature 'Friends' do
 			friend = User.create(email: "test2@test.com", password: "password", password_confirmation: "password")
 			fill_in 'friend_email', with: friend.email
 			click_button('Add Friend')
-			expect(friend.friend_requests.count).to eq 1 
+			expect(friend.friend_requests.count).to eq 1
 		end
 
 		scenario 'a friend request can be accepted' do
