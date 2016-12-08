@@ -36,4 +36,16 @@ class Friendship < ApplicationRecord
 		request = find_by_user_id_and_friend_id(user,friend)
 		request.update(:status => 'rejected')
 	end
+
+	def self.remove(user,friend)
+		transaction do
+			remove_one_side(user,friend)
+			remove_one_side(friend,user)
+		end
+	end
+
+	def self.remove_one_side(user,friend)
+		request = find_by_user_id_and_friend_id(user,friend)
+		request.delete
+	end
 end

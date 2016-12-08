@@ -10,9 +10,6 @@ feature 'Profile page' do
     it 'Should display the username' do
       expect(page).to have_content('Test')
     end
-    it 'should display the users email' do
-      expect(page).to have_content('test@test.com')
-    end
     it 'should display the users first name' do
       expect(page).to have_content('Testy')
     end

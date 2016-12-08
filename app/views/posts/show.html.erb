@@ -5,14 +5,20 @@
   <h2><%= @post.text %></h2>
   <p><%= image_tag @post.image.url(:large) %></p>
 <% end %>
+<% if @post.user == current_user %>
   <%= link_to "Edit", edit_post_path(@post) %>
   <%= link_to "Delete", post_path(@post), method: :delete %>
+<% end %>
 
 <div id='comments_div'>
   <%= render @post.comments %>
 </div>
 
-<%= form_for [@post, @post.comments.new ], remote: true do |f| %>
- <%= f.text_area :text, placeholder: 'Add a comment' %>
- <%= f.submit 'Comment' %>
+<% if current_user %>
+  <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
+   <%= f.text_area :text, placeholder: 'Add a comment' %>
+   <%= f.submit 'Comment' %>
+  <% end %>
+<% else %>
+  <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
 <% end %>

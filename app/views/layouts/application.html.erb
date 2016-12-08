@@ -26,11 +26,47 @@
          </ul>
        </nav>
      </div>
-   </header>
-   <div class="container">
-     <%= notice %>
-     <%= yield %>
-   </div>
+    </header>
+    
+    <% if current_user %>
+      <header class="signed-in-header">
+        <div class="container">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="add-friend">
+              <%= form_tag(user_friendships_path(current_user)) do %>
+                <div class="field">
+                  <%= label_tag  :friend_email, "Friends Email" %></i><br />
+                  <%= email_field_tag :friend_email, nil, :placeholder => "Enter friends email", :required => true  %> <br />
+                </div>
+                <div class="actions">
+                  <%= submit_tag "Add Friend" %>
+                </div>
+              <% end %>
+            </li>
+            <li>
+              <a id="friend-requests-link" href = "#">Friend Requests <% if @user.friend_requests.count > 0 %><span class = "badge"><%= @user.friend_requests.count %></span><% end %></a>
+              <div id="friend-requests-container">
+                <% @user.friend_requests.each do |user| %>
+                  <% if user.has_image? %>
+                    <%= image_tag(user.images.first.file(:thumbnail)) %>
+                  <% else %>
+                    <%= image_tag("default_user_image.png", size: "50") %>
+                  <% end %>
+                  <span><%= user.full_name %></span>
+                  <%= link_to "Accept Request", user_friendship_accept_path(current_user,user) %>
+                  <%= link_to "Reject Request", user_friendship_reject_path(current_user,user) %>
+                <% end %>
+              </div>
+            </li>            
+          </ul>
+        </div>
+      </header>
+    <% end %>
+
+    <div class="container">
+      <%= notice %>
+      <%= yield %>
+    </div>
 
   </body>
 </html>
