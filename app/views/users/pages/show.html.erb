@@ -1,5 +1,5 @@
 <div class="user-details">
-	
+
 	<div class="user-profile-image-container">
 		<% if @user.has_image? %>
 			<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>

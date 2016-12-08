@@ -9,11 +9,28 @@ def sign_up(first_name, last_name, username, email, password)
   click_button('Sign up')
 end
 
+def sign_up_user_2
+  visit('users/sign_up')
+  fill_in('user_first_name', with: 'User')
+  fill_in('user_last_name', with: 'User2')
+  fill_in('Username', with: 'User2')
+  fill_in('Email', with: 'user2@mail.com')
+  fill_in('Password', with: '123456')
+  fill_in('Password confirmation', with: '123456')
+  click_button('Sign up')
+end
+
 def create_post
   visit '/posts'
   click_link 'Create a post'
   fill_in 'Text', with: 'Hello World!'
   click_button 'Create Post'
+end
+
+def comment_post
+  visit '/posts'
+  fill_in "comment_text", with: 'Testing'
+  click_button 'Comment'
 end
 
 def like_post
@@ -23,4 +40,4 @@ end
 
 def sign_out
   click_link 'Sign out'
-end  
+end
