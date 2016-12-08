@@ -1,5 +1,6 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
+    <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
     <% if post.image_file_name.nil? %>
       <h2> <%= link_to post.text, post_path(post) %> </h2>
     <% else %>

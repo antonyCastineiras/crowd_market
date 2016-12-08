@@ -1,6 +1,6 @@
 <div id="comment">
 <p>
-  <strong>Comment:</strong>
+  <a href="/users/<%= comment.user.id %>/show"><%= comment.user.first_name %> <%= comment.user.last_name %></a>
   <%= comment.text %>
 </p>
 <% if comment.user == current_user %>
