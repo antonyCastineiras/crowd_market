@@ -20,6 +20,6 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{self.first_name}.capitalize #{self.last_name}.capitalize"
+    "#{self.first_name} #{self.last_name}"
   end
 end
