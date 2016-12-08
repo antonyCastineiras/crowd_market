@@ -30,7 +30,7 @@
 </div>
 
 <div class="user-details">
-	
+
 	<div class="user-profile-image-container">
 		<% if @user.has_image? %>
 			<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>
@@ -61,7 +61,7 @@
 			<%= image_tag("default_user_image.png", size: "50", class: "user-profile-image") %>
 		<% end %>
 		<span><%= friend.email %></span>
-	<% end %>	
+	<% end %>
 </div>
 
 <script>
