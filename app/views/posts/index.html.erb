@@ -1,7 +1,17 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <div id="post_<%= post.id %>">
+  <div id="post_<%= post.id %>">
+    <div class ="newsfeed">
+    <div class="well">
+      <% if post.user.has_image? %>
+      <div class="profile_pic"><%= image_tag post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+        <% else %>
+			<div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+			<% end %>
+      <div class="name_and_time">
       <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+      <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+      </div>
       <% if !post.image.exists? %>
         <h2> <%= post.text %> </h2>
       <% else %>
@@ -10,7 +20,6 @@
           <p><%= image_tag post.image.url(:medium) %></p>
         <% end %>
       <% end %>
-
     <% if @user %>
         <% if current_user.voted_up_on?(post) %>
           <%= link_to "Like", dislike_post_path(post), method: :put %>
@@ -18,12 +27,17 @@
           <%= link_to "Like", like_post_path(post), method: :put %>
         <% end %>
     <% end %>
-    <%= "Likes: #{post.get_upvotes.size}" %>
+    <%= "#{post.get_upvotes.size} | " %>
   <% if post.user == current_user %>
-    <%= link_to "Edit", edit_post_path(post) %>
-    <%= link_to "Delete", post_path(post), method: :delete %>
+    <%= link_to edit_post_path(post) do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>
+    <%= link_to post_path(post), method: :delete do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      <% end %>
   <% end %>
-    <div class='comments_div'>
+  </div>
+    <div id='comments_div' class="comments-index">
       <%= render post.comments %>
     </div>
     <% if current_user %>
@@ -39,4 +53,5 @@
 <% else %>
   No posts have been added!
 <% end %>
+
 <p><a href='posts/new'>Create a post</a></p>
