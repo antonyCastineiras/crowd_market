@@ -19,7 +19,8 @@
   <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
    <%= f.text_area :text, placeholder: 'Add a comment' %>
    <%= f.submit 'Comment' %>
-  <% end %>
+<% end %>
+
 <% else %>
   <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
 <% end %>
