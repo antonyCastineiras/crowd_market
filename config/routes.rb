@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'products/create'
+
+  get 'products/edit'
+
   get 'devise/Seller'
 
   devise_for :sellers, controllers: { :sessions => "sellers/sessions" }

@@ -1,1 +1,51 @@
 <%= current_seller.email %>
+	
+<a href="" id="add-product-link">Add a product</a>
+
+<div id="new-product-form">
+	<%= form_for @product, :url => seller_products_path(current_seller) do |f| %>
+		<div class="field">
+			<%= f.text_field :product_name, :placeholder => "Product name" %>
+		</div>
+		<div class="field">
+			<%= f.text_area :product_description, :placeholder => "Product description" %>
+		</div>
+		<div class="field">
+			<%= f.number_field :price, step: "0.01", :placeholder => "price(0.00)" %>
+		</div>
+		<div class="field">
+			<%= f.number_field :sellers_fee, max: 100, step: "0.01", :placeholder => "fee(0.00%)" %>
+		</div>
+		<div class="actions">
+	    <%= f.submit "Add Product" %>
+	  </div>
+	<% end %>
+</div>
+
+<ul id="currently-listed-products">
+
+	<h2>Products your shop has listed:</h2>
+
+	<% @seller.products.each do |product| %>
+		<li>
+			<h3><%= product.product_name %></h3>
+			<p><%= product.product_description %></p>
+			<p>Price: £<%= product.price %></p>
+			<p>Current sellers fee: <%= product.sellers_fee %></p>
+			<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
+			<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
+		</li>
+	<% end %>
+</ul>
+
+
+<script>
+	$().ready(function() {
+		$('#new-product-form').hide();
+	});
+
+	$('#add-product-link').click(function(event) {
+		event.preventDefault();
+		$('#new-product-form').toggle();
+	});
+</script>
