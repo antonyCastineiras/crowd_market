@@ -1,6 +1,6 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-
+    <div id="post_<%= post.id %>">
       <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
       <% if !post.image.exists? %>
         <h2> <%= post.text %> </h2>
@@ -23,7 +23,7 @@
     <%= link_to "Edit", edit_post_path(post) %>
     <%= link_to "Delete", post_path(post), method: :delete %>
   <% end %>
-    <div id='comments_div'>
+    <div class='comments_div'>
       <%= render post.comments %>
     </div>
     <% if current_user %>
@@ -31,6 +31,7 @@
        <%= f.text_area :text, placeholder: 'Add a comment' %>
        <%= f.submit 'Comment' %>
       <% end %>
+    </div>
     <% else%>
       <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
     <% end %>
