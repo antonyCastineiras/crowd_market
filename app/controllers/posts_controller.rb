@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.downvote_by current_user
     redirect_to posts_path
-end
+  end
 
   private
 

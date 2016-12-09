@@ -42,9 +42,11 @@ feature 'posts' do
     let!(:hello_world){ @user.posts.create(text:'Hello World!') }
     scenario 'lets a user view a post' do
       visit '/posts'
-      click_link 'Hello World!'
       expect(page).to have_content 'Hello World!'
-      expect(current_path).to eq "/posts/#{hello_world.id}"
+    end
+    scenario 'user can not click on post if image wasn\'t uploaded' do
+      visit '/posts'
+      expect(page).not_to have_link 'Hello World!'
     end
   end
 

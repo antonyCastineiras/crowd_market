@@ -1,14 +1,16 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-    <% if post.image_file_name.nil? %>
-      <h2> <%= link_to post.text, post_path(post) %> </h2>
-    <% else %>
-      <h2> <%= link_to post.text, post_path(post) %> </h2>
-      <%= link_to post_path(post) do %>
-        <p><%= image_tag post.image.url(:medium) %></p>
+
+      <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+      <% if !post.image.exists? %>
+        <h2> <%= post.text %> </h2>
+      <% else %>
+        <h2> <%= link_to post.text, post_path(post) %> </h2>
+        <%= link_to post_path(post) do %>
+          <p><%= image_tag post.image.url(:medium) %></p>
         <% end %>
-    <% end %>
+      <% end %>
+
     <% if @user %>
         <% if current_user.voted_up_on?(post) %>
           <%= link_to "Like", dislike_post_path(post), method: :put %>
