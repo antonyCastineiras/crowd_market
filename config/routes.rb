@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'devise/Seller'
+
+  devise_for :sellers, controllers: { :sessions => "sellers/sessions" }
   devise_for :users, controllers: { :registrations => "users/registrations",
                                     :sessions => "users/sessions",
                                     :pages => "users/pages"}
@@ -25,8 +28,9 @@ Rails.application.routes.draw do
   end
 
 
-
+  get '/sign_in' => 'users/pages#sign_in', as: 'sign_in'
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
+  get 'sellers/:id/show' => 'sellers/pages#show', as: 'seller_profile'
   get 'users/:id/friendships/:friend_id/accept' => 'friendships#accept', as: 'user_friendship_accept'
   get 'users/:id/friendships/:friend_id/reject' => 'friendships#reject', as: 'user_friendship_reject'
   get 'users/:id/friendships/:friend_id/delete' => 'friendships#delete', as: 'user_friendship_delete'

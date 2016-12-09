@@ -1,5 +1,6 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
+  <div id="post_<%= post.id %>">
     <div class ="newsfeed">
     <div class="well">
       <% if post.user.has_image? %>
@@ -35,7 +36,7 @@
       <span class="glyphicon glyphicon-trash"></span>
       <% end %>
   <% end %>
-</div>
+  </div>
     <div id='comments_div' class="comments-index">
       <%= render post.comments %>
     </div>

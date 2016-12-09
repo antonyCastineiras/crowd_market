@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">	
+	<div class="col-md-8 col-md-offset-2">
 		<div class="user-profile-image-container">
 			<% if @user.has_image? %>
 				<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>
@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="user-details">
-			<h1><%= @user.full_name%></h1>
+			<h1><%= link_to @user.full_name, edit_user_registration_path%></h1>
 			<h3><%= @user.username %></h3>
 			<% if @user == current_user %>
 				<a href="" id="upload-image-link">Upload an image?</a>
@@ -43,7 +43,7 @@
 					<span><%= link_to "#{friend.full_name}", user_profile_path(friend) %></span>
 					<%= link_to "Remove Friend", user_friendship_delete_path(current_user,friend) if @user == current_user %>
 				</div>
-			<% end %>	
+			<% end %>
 		</div>
 	</div>
 </div>
@@ -51,7 +51,7 @@
 
 <script>
 	$( function() {
-		$('#friend-requests-container, #upload-image-form-container').hide(); 
+		$('#friend-requests-container, #upload-image-form-container').hide();
 	});
 
 	$('#friend-requests-link').click(function(event) {
