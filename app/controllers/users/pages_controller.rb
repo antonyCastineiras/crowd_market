@@ -6,6 +6,11 @@ class Users::PagesController < ApplicationController
     @friendship = Friendship.new
   end
 
+  def sign_in
+  	@user = User.new
+  	@seller = Seller.new
+  end
+
   def page_params
   	params.require(:page).permit(:id)
   end
