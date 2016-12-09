@@ -1,10 +1,10 @@
 <ul id="sign-in-tabs" class="nav">
 	<li><a href="" class="tablinks active" onclick="displayForm(event,'user-form')">Sign in as User</a></li>
-	<li><a href="" class="tablinks active" onclick="displayForm(event,'seller-form')">Sign in as Seller</a></li>
+	<li><a href="" class="tablinks" onclick="displayForm(event,'seller-form')">Sign in as Seller</a></li>
 </ul>
 
 <div id="user-form" class="tab-content">
-  <h2>Log in</h2>
+  <h2>Log in as User</h2>
 
 	<%= form_for @user, as: :user, :url => session_path(:user) do |f| %>
 	  <div class="field">
@@ -31,7 +31,7 @@
 </div>
 
 <div id="seller-form" class="tab-content">
-  <h3>Seller</h3>
+  <h2>Log in as Seller</h2>
 
   <%= form_for @seller, as: :seller, :url => session_path(:seller) do |f| %>
 	  <div class="field">
@@ -58,6 +58,10 @@
 
 
 <script>
+$().ready(function() {
+	$('#user-form').show();
+});
+
 	function displayForm(event,formId) {
 		event.preventDefault();
 		$('.tablinks').removeClass('active');
