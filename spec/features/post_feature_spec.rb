@@ -66,7 +66,7 @@ feature 'posts' do
     scenario 'removes a post when a user clicks delete' do
       create_post
       visit "/posts"
-      click_link 'Delete'
+      page.first("glyphicon glyphicon-trash").click
       expect(current_path).to eq '/posts'
       expect(page).to have_content 'Post deleted'
       expect(page).not_to have_content 'Hello'

@@ -14,10 +14,10 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
  @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Lato');
+ @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Source+Sans+Pro');
 body {
   padding-top: 100px;
-  font-family: 'Lato', sans-serif;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 #logo {
@@ -29,6 +29,23 @@ body {
 .navbar-nav {
   font-size: 120%;
   bottom: 0;
+  font-family: 'Indie Flower', cursive;
+}
+
+.newsfeed {
+  border-style: solid;
+  margin-bottom: 20px;
+}
+
+.div-inline {
+  position: relative;
+  display:inline-block;
+  vertical-align: middle;
+}
+
+.profile_pic {
+  float: left;
+  margin-right: 10px;
 }
 
 /*=====================
