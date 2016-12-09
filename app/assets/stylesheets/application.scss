@@ -58,3 +58,33 @@ body {
 	min-width: 50px;
 	min-height: 50px;
 }
+/*=====================
+		Sign in page styles
+=======================
+*/		
+
+#sign-in-links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+} 
+
+#sign-in-links li { float: left }
+
+#sign-in-links li a {
+	display: inlinne-block;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+#sign-in-links li a:focus, .active {background-color: #ccc;}
+
+.tab-content {
+	display: none;
+	padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
