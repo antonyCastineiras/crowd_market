@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sellers do
+    resources :products
+  end
+
   resources :users do
     resources :images
     resources :friendships
