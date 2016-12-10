@@ -32,8 +32,10 @@
 			<p><%= product.product_description %></p>
 			<p>Price: £<%= product.price %></p>
 			<p>Current sellers fee: <%= product.sellers_fee %></p>
-			<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
-			<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
+			<% if current_seller == Seller.find(params[:id]) %>
+				<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
+				<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
+			<% end %>
 		</li>
 	<% end %>
 </ul>
