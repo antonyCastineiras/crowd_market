@@ -58,3 +58,4 @@ end
 def sign_out
   click_link 'Sign out'
 end
+
