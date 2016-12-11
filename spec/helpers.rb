@@ -20,6 +20,23 @@ def sign_up_user_2
   click_button('Sign up')
 end
 
+def sign_up_seller(email,password)
+  visit('/sellers/sign_up')
+  fill_in("Email", with: email)
+  fill_in("Password", with: password)
+  fill_in("seller_password_confirmation", with: password)
+  click_button('Sign up')
+end
+
+def sign_in_seller(email,password)
+  visit('/sign_in')
+  page.evaluate_script("$('#seller-form').show()")
+  fill_in("seller_email", with: password)
+  fill_in("seller_password", with: password)
+  print page.html
+  click_button("seller-log-in-button")
+end
+
 def create_post
   visit '/posts'
   click_link 'Create a post'
@@ -41,3 +58,4 @@ end
 def sign_out
   click_link 'Sign out'
 end
+

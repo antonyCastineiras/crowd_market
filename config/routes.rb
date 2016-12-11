@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  get 'products/create'
+
+  get 'products/edit'
+
   get 'devise/Seller'
 
-  devise_for :sellers, controllers: { :sessions => "sellers/sessions" }
+  devise_for :sellers, controllers: { :sessions => "sellers/sessions",
+                                      :registrations => "sellers/registrations" }
   devise_for :users, controllers: { :registrations => "users/registrations",
                                     :sessions => "users/sessions",
                                     :pages => "users/pages"}
@@ -20,6 +25,10 @@ Rails.application.routes.draw do
       put "like", to: "posts#upvote"
       put "dislike", to: "posts#downvote"
     end
+  end
+
+  resources :sellers do
+    resources :products
   end
 
   resources :users do

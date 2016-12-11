@@ -15,10 +15,18 @@
        <%= link_to "CrowdMarket", '/', id: "logo" %>
        <nav>
          <ul class="nav navbar-nav navbar-right">
-           <li><%= link_to "Home", '/'   %></li>
-           <% if current_user %>
-            <li><%= link_to "Profile", user_profile_url(current_user.id) %></li>
-         		<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Home", '/'   %></li>
+          <% if current_user || current_seller %>
+            <% if current_user %>
+              <li><%= link_to "Profile", user_profile_path(current_user) %></li>
+            <% elsif current_seller %>
+              <li><%= link_to "Profile", seller_profile_path(current_seller) %></li>
+            <% end %>
+         		<% if current_user %>
+              <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+            <% elsif current_seller %>
+              <li><%= link_to "Sign out", destroy_session_path(current_seller), method: :delete %></li>
+            <% end %>
           <% else %>
             <li><%= link_to "Sign in", sign_in_path %></li>
             <li><%= link_to "Sign up", new_user_registration_url %></li>

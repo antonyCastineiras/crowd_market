@@ -1,0 +1,17 @@
+<%= form_for @product, :url => seller_product_path(current_seller, @product) do |f| %>
+	<div class="field">
+		<%= f.text_field :product_name, :placeholder => "Product name" %>
+	</div>
+	<div class="field">
+		<%= f.text_area :product_description, :placeholder => "Product description" %>
+	</div>
+	<div class="field">
+		<%= f.number_field :price, step: "0.01", :placeholder => "price(0.00)" %>
+	</div>
+	<div class="field">
+		<%= f.number_field :sellers_fee, max: 100, step: "0.01", :placeholder => "fee(0.00%)" %>
+	</div>
+	<div class="actions">
+    <%= f.submit "Update Product" %>
+  </div>
+<% end %>
