@@ -28,6 +28,7 @@
           <% end %>
         <% end %>
         <%= "#{post.get_upvotes.size} | " %>
+        <div class="edit_and_delete_posts">
         <% if post.user == current_user %>
           <%= link_to edit_post_path(post) do %>
             <span class="glyphicon glyphicon-pencil"></span>
@@ -35,7 +36,8 @@
           <%= link_to post_path(post), method: :delete do %>
             <span class="glyphicon glyphicon-trash"></span>
           <% end %>
-          <div class='comments_div'>
+        </div>
+          <div class='comments_div'> <br>
             <%= render post.comments %>
           </div>
           <% if current_user %>

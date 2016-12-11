@@ -33,8 +33,25 @@ body {
 }
 
 .newsfeed {
+  margin: auto;
   border-style: solid;
   margin-bottom: 20px;
+  border-width: 0px;
+  max-height: 400px;
+  max-width: 550px;
+  position: relative;
+}
+
+.edit_and_delete_posts {
+    position:absolute;
+    top: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+#comment {
+  color: #dodgerblue
 }
 
 .div-inline {
@@ -78,14 +95,14 @@ body {
 /*=====================
 		Sign in page styles
 =======================
-*/		
+*/
 
 #sign-in-links {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-} 
+}
 
 #sign-in-links li { float: left }
 
