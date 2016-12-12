@@ -18,7 +18,7 @@
           <h2> <%= link_to post.text, post_path(post) %> </h2>
           <%= link_to post_path(post) do %>
             <p><%= image_tag post.image.url(:medium) %></p>
-            <% end %>
+          <% end %>
         <% end %>
         <% if @user %>
           <% if current_user.voted_up_on?(post) %>
@@ -31,10 +31,10 @@
         <div class="edit_and_delete_posts">
         <% if post.user == current_user %>
           <%= link_to edit_post_path(post) do %>
-            <span class="glyphicon glyphicon-pencil"></span>
+            <span class="glyphicon glyphicon-pencil" data-toggle="popover" data-trigger="hover" data-content="Edit"></span>
           <% end %>
           <%= link_to post_path(post), method: :delete do %>
-            <span class="glyphicon glyphicon-trash"></span>
+            <span class="glyphicon glyphicon-trash" data-toggle="popover" data-trigger="hover" data-content="Delete"></span>
           <% end %>
         </div>
           <div class='comments_div'> <br>
@@ -58,3 +58,9 @@
 <% end %>
 
 <p><%= link_to "Create a post", new_post_path %></p>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
