@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     resources :friendships
   end
 
+  resources :charges
+
 
   get '/sign_in' => 'users/pages#sign_in', as: 'sign_in'
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'

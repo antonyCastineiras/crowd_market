@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 
 gem 'devise'
+gem 'stripe'
 gem 'acts_as_votable'
 gem 'paperclip'
 gem 'bootstrap-sass', '~> 3.3.7'

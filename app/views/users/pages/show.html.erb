@@ -1,5 +1,4 @@
-<div class="row">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="profile_main col-xs-12 col-sm-6 col-lg-8">
 		<div class="user-profile-image-container">
 			<% if @user.has_image? %>
 				<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>
@@ -7,7 +6,6 @@
 				<%= image_tag("default_user_image.png", size: "200", class: "user-profile-image") %>
 			<% end %>
 		</div>
-
 		<div class="user-details">
 			<h1><%= link_to @user.full_name, edit_user_registration_path%></h1>
 			<h3><%= @user.username %></h3>
@@ -23,18 +21,47 @@
 							<%= form.submit "Upload" %>
 						</div>
 					<% end %>
-				</div>
+			</div>
 			<% end %>
 		</div>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-md-8 col-md-offset-2">
-		<div class="user-friends">
-		<h3 class="text-center"><%= @user.full_name %>'s Friends</h3>
+	<% if current_user %>
+		<div class="signed-in-header col-xs-6 col-lg-4">
+				<ul class="nav navbar-nav">
+					<li class="add-friend">
+						<%= form_tag(user_friendships_path(current_user)) do %>
+							<div class="field">
+								<%= label_tag  :friend_email, "Friends Email" %></i><br />
+								<%= email_field_tag :friend_email, nil, :placeholder => "Enter friends email", :required => true  %> <br />
+							</div>
+							<div class="actions">
+								<%= submit_tag "Add Friend" %>
+							</div>
+						<% end %>
+					</li>
+					<li>
+						<a id="friend-requests-link" href = "#">Friend Requests <% if @user.friend_requests.count > 0 %><span class = "badge"><%= @user.friend_requests.count %></span><% end %></a>
+						<div id="friend-requests-container">
+							<% @user.friend_requests.each do |user| %>
+								<% if user.has_image? %>
+									<%= image_tag(user.images.first.file(:thumbnail)) %>
+								<% else %>
+									<%= image_tag("default_user_image.png", size: "50") %>
+								<% end %>
+								<span><%= user.full_name %></span>
+								<%= link_to "Accept Request", user_friendship_accept_path(current_user,user) %>
+								<%= link_to "Reject Request", user_friendship_reject_path(current_user,user) %>
+							<% end %>
+						</div>
+					</li>
+				</ul>
+
+
+		<div class="div-inline">
+		<p class="text-center"><%= @user.full_name %>'s Friends</p>
 			<% @user.friends.each do |friend| %>
-				<div class="user-friend-container col-md-2 col-md-offset-2 text-center">
+				<div class="user-friend-container col-xs-6 col-lg-4 text-center">
 					<% if friend.has_image? %>
 						<%= image_tag(friend.images.first.file(:thumbnail), class: "user-profile-image col-md-12") %>
 					<% else %>
@@ -45,9 +72,14 @@
 				</div>
 			<% end %>
 		</div>
+		<div class="test">
+		</div>
 	</div>
-</div>
+	<% end %>
 
+<div class="profile_feed col-xs-12 col-sm-6 col-lg-8">
+	<h1>POSTS / ADS GO HERE</h1>
+</div>
 
 <script>
 	$( function() {
