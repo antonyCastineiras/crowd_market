@@ -1,0 +1,7 @@
+<div id="post_<%= @product.id %>">
+    <%= @product.product_name %>
+    <%= @product.product_description %>
+    <%= @product.price %>
+</div>
+
+  <%= link_to "Buy this product", seller_product_new_payment_path(@product.seller, @product) %>

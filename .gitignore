@@ -21,3 +21,6 @@
 /public/system/posts/images/
 /public/system/users/images/
 /public/images
+
+# Don't check in credentials 
+config/env.yml
