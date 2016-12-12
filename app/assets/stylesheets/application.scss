@@ -122,3 +122,29 @@ body {
   border: 1px solid #ccc;
   border-top: none;
 }
+
+/*================
+  adverts styles
+================*/
+
+#canvas-wrap {
+  position: relative;
+}
+
+#overlay {
+  // position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  width: 100%;
+  //  height: 100%;
+}
+
+#canvas {
+  background-image: url('practice_image.jpg');
+  background-size: cover;
+}
+
+.new-ad {
+  border: 1px solid #fff;
+  position: absolute;
+}

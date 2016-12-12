@@ -4,11 +4,17 @@
   <h2><%= @post.text %></h2>
 <% else %>
   <h2><%= @post.text %></h2>
-  <p><%= image_tag @post.image.url(:large) %></p>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="607px" height="457px" style="background-image: url('<%= @post.image.url%>');"></canvas>
+    <div id="overlay"></div>
+  </div>
 <% end %>
 <% if @post.user == current_user %>
   <%= link_to "Edit", edit_post_path(@post) %>
   <%= link_to "Delete", post_path(@post), method: :delete %>
+  <% if @post.user == current_user %>
+    <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add adverts
+  <% end %>
 <% end %>
 
 <div class='comments_div'>
@@ -25,3 +31,79 @@
   <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
 <% end %>
 </div>
+
+<% if current_user == @post.user %>
+  <script>
+
+    function pixelsToPercent(n) {
+        (n / 100) * 100;
+      }
+
+    initDraw(document.getElementById('canvas'));
+
+    function initDraw(canvas) {
+
+      function setMousePosition(e) {
+        var ev = e || window.event;
+        if (ev.pageX) { //Moz
+          mouse.x = ev.pageX -  $('#canvas-wrap').offset().left;
+          mouse.y = ev.pageY -  $('#canvas-wrap').offset().top;
+        } else if (ev.clientX) { //IE
+          mouse.x = ev.clientX -  $('#canvas-wrap').offset().left;
+          mouse.y = ev.clientY -  $('#canvas-wrap').offset().top;
+        }
+      }
+
+      var mouse = {
+        x: 0,
+        y: 0,
+        startX: 0,
+        startY: 0
+      };
+      var element = null;
+
+      canvas.onmousemove = function(e) {
+        setMousePosition(e);
+        if (element !== null) {
+          element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
+          element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
+          element.style.left = (mouse.x - mouse.startX) < 0 ? mouse.x + 'px' : mouse.startX + 'px';
+          element.style.top = (mouse.y - mouse.startY) < 0 ? mouse.y = 'px' : mouse.startY + 'px'; 
+        }
+        console.log(element);
+      }
+
+      var overlay = document.getElementById('overlay');
+
+      canvas.onclick = function(e) {
+        if (element !== null) {
+          console.log("finished");
+          $('.new-ad').on('click', function() {
+            this.remove();
+          });
+          // console.log( ( $('.new-ad').width() / $('#canvas').width() ) * 100 + "%")
+          element.style.width = ( ( $('.new-ad').width() / $('#canvas').width() ) * 100 ) + "%";
+          element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
+          element.style.border = "1px solid #fff"
+          console.log(element);
+          element = null;
+          canvas.style.cursor = "default";
+        } else if ($('.new-ad').length < 1 && document.getElementById('adverts-checkbox').checked == true) {
+          console.log("begun");
+          mouse.startX = mouse.x;
+          mouse.startY = mouse.y;
+          element = document.createElement('div');
+          element.className = 'new-ad';
+          element.style.left = mouse.x + 'px';
+          element.style.top = mouse.y + 'px';
+          element.style.border = "1px dashed #fff"
+          canvas.style.cursor = "crosshair";
+          overlay.appendChild(element);
+          console.log(element)
+        }
+      }
+
+    }
+
+  </script>
+<% end %>
