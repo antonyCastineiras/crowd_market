@@ -50,7 +50,7 @@ body {
 }
 
 #comment {
-  color: #dodgerblue
+  color: dodgerblue
 }
 
 .div-inline {
@@ -62,6 +62,10 @@ body {
 .profile_pic {
   float: left;
   margin-right: 10px;
+}
+
+.add-friend > * {
+  display: inline-block;
 }
 
 /*=====================
@@ -92,9 +96,11 @@ body {
 	min-height: 50px;
 }
 
-.signed-in-header {
-  border-left: 1px solid black;
+
+.profile_main, .profile-feed, .extras-div {
+  margin-top: 20px;
 }
+
 .profile_feed {
 
 }
@@ -132,4 +138,31 @@ body {
 	padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+}
+
+/*======================
+  friend requests styles
+======================*/
+
+#friend-requests-link {
+}
+
+#friend-requests-container {
+  position: absolute;
+  top: calc(100% + 1px);
+  right: 0;
+  white-space: nowrap;
+  background: #f0f0f0;
+  padding: 15px;
+  border: 1px solid #d3d3d3;
+  border-top: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 1px 2px 6px #0f0f0f;
+}
+
+
+
+.friend-request-details img, .user-full-name, .friend-request-button {
+  display: inline-block;
 }
