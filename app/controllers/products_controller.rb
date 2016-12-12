@@ -16,6 +16,10 @@ class ProductsController < ApplicationController
 		redirect_to seller_profile_path(current_seller)
 	end
 
+	def show
+		@product = Product.find(params[:id])
+	end
+
 	def destroy
 		product = Product.find(params[:id])
 		product.destroy

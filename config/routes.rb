@@ -28,15 +28,19 @@ Rails.application.routes.draw do
   end
 
   resources :sellers do
-    resources :products
+    resources :products do
+        get '/payment/new' => 'payments#create', as: 'new_payment'
+    end
   end
+
+
 
   resources :users do
     resources :images
     resources :friendships
   end
 
-
+  get '/products/:id/show' => 'products#show', as: 'product'
   get '/sign_in' => 'users/pages#sign_in', as: 'sign_in'
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
   get 'sellers/:id/show' => 'sellers/pages#show', as: 'seller_profile'

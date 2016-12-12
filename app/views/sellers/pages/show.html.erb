@@ -1,5 +1,5 @@
 <%= current_seller.email %>
-	
+
 <a href="" id="add-product-link">Add a product</a>
 
 <div id="new-product-form">
@@ -36,6 +36,7 @@
 				<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
 				<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
 			<% end %>
+			<% link_to "Buy this product", seller_product_new_payment_path(product.seller, product) %>
 		</li>
 	<% end %>
 </ul>

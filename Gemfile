@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-
+gem 'haml'
+gem 'stripe'
+gem 'envyable'
+gem 'omniauth-paypal'
 gem 'devise'
 gem 'acts_as_votable'
 gem 'paperclip'
