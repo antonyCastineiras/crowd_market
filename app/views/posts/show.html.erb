@@ -1,27 +1,58 @@
 <div id="post_<%= @post.id %>">
-  <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
-<% if @post.image_file_name.nil? %>
-  <h2><%= @post.text %></h2>
-<% else %>
-  <h2><%= @post.text %></h2>
-  <p><%= image_tag @post.image.url(:large) %></p>
-<% end %>
-<% if @post.user == current_user %>
-  <%= link_to "Edit", edit_post_path(@post) %>
-  <%= link_to "Delete", post_path(@post), method: :delete %>
-<% end %>
-
-<div class='comments_div'>
-  <%= render @post.comments %>
+  <div class ="newsfeed">
+    <div class="well">
+      <% if @post.user.has_image? %>
+        <div class="profile_pic"><%= image_tag @post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+      <% else %>
+        <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+      <% end %>
+      <div class="name_and_time">
+        <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
+        <span><%= @post.created_at.strftime("%d %b %Y %H:%M") %></span>
+      </div>
+      <% if @post.image_file_name.nil? %>
+        <h2><%= @post.text %></h2>
+      <% else %>
+        <h2><%= @post.text %></h2>
+        <p><%= image_tag @post.image.url(:large) %></p>
+      <% end %>
+      <% if @user %>
+        <% if current_user.voted_up_on?(@post) %>
+          <%= link_to "Like", dislike_post_path(@post), method: :put %>
+        <% else %>
+          <%= link_to "Like", like_post_path(@post), method: :put %>
+        <% end %>
+      <% end %>
+      <%= "#{@post.get_upvotes.size} | " %>
+      <div class="edit_and_delete_posts">
+      <% if @post.user == current_user %>
+        <%= link_to edit_post_path(@post) do %>
+          <span class="glyphicon glyphicon-pencil" data-toggle="popover" data-trigger="hover" data-content="Edit"></span>
+        <% end %>
+        <%= link_to post_path(@post), method: :delete do %>
+          <span class="glyphicon glyphicon-trash" data-toggle="popover" data-trigger="hover" data-content="Delete"></span>
+        <% end %>
+      <% end %>
+      </div>
+      <div class='comments_div'>
+        <%= render @post.comments %>
+      </div>
+      <% if current_user %>
+        <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
+         <%= f.text_area :text, placeholder: 'Add a comment' %>
+         <%= f.submit 'Comment' %>
+      <% end %>
+      <% else %>
+        <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<% if current_user %>
-  <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
-   <%= f.text_area :text, placeholder: 'Add a comment' %>
-   <%= f.submit 'Comment' %>
-<% end %>
 
-<% else %>
-  <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
-<% end %>
-</div>
+<!--Hover script-->
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
