@@ -6,7 +6,13 @@
   <h2><%= @post.text %></h2>
   <div id="canvas-wrap">
     <canvas id="canvas" width="607px" height="457px" style="background-image: url('<%= @post.image.url%>');"></canvas>
-    <div id="overlay"></div>
+    <div id="overlay">
+      <% if @post.adverts.any? %>
+        <% @post.adverts.each do |advert| %>
+          <div class="user-ad" style="left: <%= advert.left %>; top: <%= advert.top %>; width: <%= advert.width %>; height: <%= advert.height %>" ></div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 <% if @post.user == current_user %>
@@ -14,6 +20,11 @@
   <%= link_to "Delete", post_path(@post), method: :delete %>
   <% if @post.user == current_user %>
     <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add adverts
+    <form action="/adverts/create" method="post">
+      <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
+      <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
+      <input id="create-ad-button" type="submit" value="Create Ad" disabled>
+    </form>
   <% end %>
 <% end %>
 
@@ -32,12 +43,11 @@
 <% end %>
 </div>
 
+
+
 <% if current_user == @post.user %>
   <script>
 
-    function pixelsToPercent(n) {
-        (n / 100) * 100;
-      }
 
     initDraw(document.getElementById('canvas'));
 
@@ -70,26 +80,23 @@
           element.style.left = (mouse.x - mouse.startX) < 0 ? mouse.x + 'px' : mouse.startX + 'px';
           element.style.top = (mouse.y - mouse.startY) < 0 ? mouse.y = 'px' : mouse.startY + 'px'; 
         }
-        console.log(element);
       }
 
       var overlay = document.getElementById('overlay');
 
       canvas.onclick = function(e) {
         if (element !== null) {
-          console.log("finished");
-          $('.new-ad').on('click', function() {
+          $('.new-ad').on('click', function(event) {
             this.remove();
+            $('#create-ad-button').prop('disabled',true);
           });
-          // console.log( ( $('.new-ad').width() / $('#canvas').width() ) * 100 + "%")
-          element.style.width = ( ( $('.new-ad').width() / $('#canvas').width() ) * 100 ) + "%";
-          element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
-          element.style.border = "1px solid #fff"
-          console.log(element);
+          convertStylesToPercentages();
+          element.style.border = "1px solid #fff";
           element = null;
+          displayProductSearch();
           canvas.style.cursor = "default";
         } else if ($('.new-ad').length < 1 && document.getElementById('adverts-checkbox').checked == true) {
-          console.log("begun");
+          $('#create-ad-button').prop('disabled',false);
           mouse.startX = mouse.x;
           mouse.startY = mouse.y;
           element = document.createElement('div');
@@ -99,11 +106,55 @@
           element.style.border = "1px dashed #fff"
           canvas.style.cursor = "crosshair";
           overlay.appendChild(element);
-          console.log(element)
         }
       }
 
+      function displayProductSearch() {
+        input = document.createElement('input');
+        input.id = 'product-search-input';
+        input.placeholder = 'Search for product';
+        input.onclick =function(event) {
+            event.stopPropagation();
+        };
+        input.onchange = function() {
+          $.ajax({
+
+          })
+        };
+        $('.new-ad').append(input)
+      }
+
+      function convertStylesToPercentages() {
+        element.style.width = ( ( $(element).outerWidth() / $('#overlay').width() ) * 100 ) + "%";
+          element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
+          element.style.left = ( ( $(element).position().left / $('#overlay').width() ) * 100 ) + "%";
+          element.style.top = ( ( $(element).position().top / $('#canvas').height() ) * 100 ) + "%";
+      }
     }
+
+    $('#create-ad-button').click(function(event) {
+      var newAd = $('.new-ad')[0];
+
+
+      event.preventDefault();
+      $.ajax({
+        url: '/adverts/create',
+        type: 'post',
+        data: {width: newAd.style.width, 
+               height: newAd.style.height, 
+               left: newAd.style.left, 
+               top: newAd.style.top,
+               post_id : $('#post_id').prop('value'),
+               user_id : $('#user_id').prop('value'),
+              },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data+ "was sent")
+          $('.new-ad').remove();
+          $('#create-ad-button').prop('disabled',true);
+        }
+      });
+    });
 
   </script>
 <% end %>
