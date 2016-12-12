@@ -13,12 +13,16 @@ class PaymentsController < ApplicationController
   end
 
   def new
-    @product = Product.find(params[:id])
-    @payment = Payment.new
+    @product = Product.find(params[:product_id])
+    @payment = Payment.new(payment_params)
   end
 
   private
     def stripe_params
       params.permit :stripeEmail, :stripeToken
+    end
+
+    def payment_params
+      params.require(:payment).permit(:full_name)
     end
 end

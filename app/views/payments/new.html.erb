@@ -1,7 +1,6 @@
-
-<%= form_for @payment, :url => seller_product_new_payment_path(@product.seller, @product) do |f| %>
+<%= form_for @payment, as: :product, :url => seller_product_new_payment_path(@product.seller, @product) do |f| %>
   <div class="field">
-    <%= f.hiden_field :product_id, value: @product.id %>
+    <%= f.hidden_field :product_id, value: @product.id %>
   </div>
 
   <div class="field">

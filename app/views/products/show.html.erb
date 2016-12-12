@@ -4,4 +4,4 @@
     <%= @product.price %>
 </div>
 
-  <%= link_to "Buy this product", seller_product_new_payment_path(@product.seller, @product) %>
+ <%= link_to "Buy this product", new_payment_path(@product.seller, @product) %>

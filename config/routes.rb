@@ -29,7 +29,8 @@ Rails.application.routes.draw do
 
   resources :sellers do
     resources :products do
-        get '/payment/new' => 'payments#create', as: 'new_payment'
+        get '/payment/new' => 'payments#new', as: 'new_payment'
+        post '/payments/create' => 'payments#create', as: 'payment'
     end
   end
 
