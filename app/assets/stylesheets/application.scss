@@ -188,7 +188,10 @@ body {
 
 #canvas {
   background-image: url('practice_image.jpg');
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
 }
 
 .new-ad {

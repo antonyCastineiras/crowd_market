@@ -158,6 +158,7 @@ $(document).ready(function(){
             dataType: 'json',
             success : function(data) {
               appendSuggestedProducts(data);
+              console.log(data)
             }
           })
         };
@@ -169,7 +170,7 @@ $(document).ready(function(){
          for (i=0; i<data.products.length; i++) {
           product = data.products[i]
           container.id = "suggested-products";
-          image = $('<img>');
+          image = $('<img>').prop('src', './public/products/'+product.image_file_name);
           heading = $('<h5></h5>').text(product.product_name);
           description = $('<p><p>').text(product.product_description);
           price = $('<p></p>').text('£'+product.price);
