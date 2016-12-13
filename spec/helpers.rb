@@ -59,3 +59,12 @@ end
 def sign_out
   click_link 'Sign out'
 end
+
+def add_product
+  click_link 'Add a product'
+  fill_in 'product[product_name]', with: 'Product'
+  fill_in 'product[product_description]', with: 'Product description'
+  fill_in 'product[price]', with: '500'
+  fill_in 'product[sellers_fee]', with: '2'
+  click_button 'Add Product'
+end

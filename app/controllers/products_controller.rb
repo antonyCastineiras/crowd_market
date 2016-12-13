@@ -22,8 +22,10 @@ class ProductsController < ApplicationController
 		redirect_to seller_profile_path	(current_seller)
 	end
 
+	private
 
 	def product_params
-		params.require(:product).permit(:product_name,:product_description,:price,:sellers_fee)
+		params.require(:product).permit(:product_name,:product_description,:price,:sellers_fee, :image)
 	end
+
 end

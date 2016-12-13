@@ -11,6 +11,9 @@
 	<div class="field">
 		<%= f.number_field :sellers_fee, max: 100, step: "0.01", :placeholder => "fee(0.00%)" %>
 	</div>
+	<div class="field">
+		<%= f.file_field :image %>
+	</div>
 	<div class="actions">
     <%= f.submit "Update Product" %>
   </div>

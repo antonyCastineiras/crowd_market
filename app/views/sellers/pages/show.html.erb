@@ -1,5 +1,5 @@
 <%= current_seller.email %>
-	
+
 <a href="" id="add-product-link">Add a product</a>
 
 <div id="new-product-form">
@@ -15,6 +15,9 @@
 		</div>
 		<div class="field">
 			<%= f.number_field :sellers_fee, max: 100, step: "0.01", :placeholder => "fee(0.00%)" %>
+		</div>
+		<div class="field">
+			<%= f.file_field :image %>
 		</div>
 		<div class="actions">
 	    <%= f.submit "Add Product" %>
@@ -32,6 +35,9 @@
 			<p><%= product.product_description %></p>
 			<p>Price: £<%= product.price %></p>
 			<p>Current sellers fee: <%= product.sellers_fee %></p>
+			<% if product.has_image? %>
+				<p><%= image_tag product.image.url(:medium) %></p>
+			<% end %>
 			<% if current_seller == Seller.find(params[:id]) %>
 				<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
 				<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
