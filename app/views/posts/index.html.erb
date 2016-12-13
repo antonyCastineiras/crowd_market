@@ -20,19 +20,13 @@
             <p><%= image_tag post.image.url(:medium) %></p>
           <% end %>
         <% end %>
-        <% if @user %>
-          <% if current_user.voted_up_on?(post) %>
-            <span class= "dislike-<%= post.id %>">
-              <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
-              <div class="up-<%= post.id %>"><%= post.get_upvotes.size %></div>
-            </span>
-          <% else %>
-            <span class= "like-<%= post.id %>">
-              <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like' %>
-              <div class="up-<%= post.id %>"><%= post.get_upvotes.size %></div>
-            </span>
-          <% end %>
-        <% end %>
+        <span class= "like-<%= post.id %>">
+          <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like' %>
+          <div class="up-<%= post.id %>"><%= post.get_upvotes.size %></div>
+        </span>
+        <span class= "dislike-<%= post.id %>">
+          <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
+        </span>
         <div class="edit_and_delete_posts">
         <% if post.user == current_user %>
           <%= link_to edit_post_path(post) do %>
