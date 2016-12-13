@@ -1,13 +1,13 @@
 <div id="comment">
   <a href="/users/<%= comment.user.id %>/show"><%= comment.user.first_name %> <%= comment.user.last_name %></a>
-  <%= comment.text %>
-<% if comment.user == current_user %>
-  <div class="dropdown div-inline">
-    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">...</button>
-    <ul class="dropdown-menu">
-      <li><%= link_to "Delete", comment_path(comment), method: :delete %></li>
-      <li><%= link_to "Edit Comment", edit_comment_url(comment) %></li>
-    </ul>
-  </div>
-<% end %>
+  <%= comment.text %> <br>
+  <%= comment.created_at.strftime("%d %b %Y %H:%M") %>
+    <% if comment.user == current_user %>
+      <%= link_to edit_comment_path(comment) do %>
+        <span class="glyphicon glyphicon-pencil gi-2x" data-toggle="popover" data-trigger="hover" data-content="Edit"></span>
+        <% end %>
+        <%= link_to comment_path(comment), method: :delete do %>
+        <span class="glyphicon glyphicon-trash gi-2x" data-toggle="popover" data-trigger="hover" data-content="Delete"></span>
+        <% end %>
+    <% end %>
 </div>

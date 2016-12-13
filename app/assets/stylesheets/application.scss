@@ -15,9 +15,19 @@
  @import "bootstrap";
  @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Lato');
  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Source+Sans+Pro');
+
+/* Font sizes to be used with BootStrap Glyphicons */
+
+.gi-2x{font-size: 10px;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
 body {
   padding-top: 100px;
   font-family: 'Roboto Condensed', sans-serif;
+  background-color: #f4f1ec;
+  background-image: url(http://leaders.lolrus.mediamolecule.com/bg-jobs.jpg?mtime=20140604125115);
 }
 
 #logo {
@@ -49,8 +59,8 @@ body {
     padding-right: 5px;
 }
 
-#comment {
-  color: dodgerblue
+.formatting_comments {
+  font-size: 11px;
 }
 
 .div-inline {
