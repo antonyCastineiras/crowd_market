@@ -47,7 +47,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.upvote_by current_user
     respond_to do |format|
-      format.html {redirect_to :back }
+      format.html { redirect_back(fallback_location: posts_path(@post)) }
       format.json { render json: { count: @post.liked_count } }
       format.js   { render :layout => false }
     end
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.downvote_by current_user
     respond_to do |format|
-      format.html {redirect_to :back }
+      format.html { redirect_back(fallback_location: posts_path(@post)) }
       format.json { render json: { count: @post.disliked_count } }
       format.js   { render :layout => false }
     end

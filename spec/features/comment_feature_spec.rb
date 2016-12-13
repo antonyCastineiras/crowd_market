@@ -32,6 +32,7 @@ feature 'comments' do
     end
     it 'users must be signed in to comment' do
       sign_out
+      click_link 'Hello World!'
       expect(page).to have_content('You need to sign in to comment')
     end
   end
