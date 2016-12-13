@@ -26,7 +26,7 @@
           <% else %>
             <%= link_to "Like", like_post_path(post), method: :put %>
           <% end %>
-          | <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up"></span>
         <%= "#{post.get_upvotes.size} " %>
         <div class="edit_and_delete_posts">
           <div class="dropdown div-inline">
@@ -38,7 +38,7 @@
             </ul>
           </div>
         </div>
-          <div class='homepage_comments'>
+          <div class='comments_div'> <br>
             <%= render post.comments %>
           </div>
           <% if current_user %>
