@@ -22,10 +22,15 @@ class ProductsController < ApplicationController
 		redirect_to seller_profile_path	(current_seller)
 	end
 
-	private
+
+	def get
+		product = Product.where("product_name like ?","%#{params[:search_string]}%")
+		render :json => { products: product }
+	end
+
 
 	def product_params
-		params.require(:product).permit(:product_name,:product_description,:price,:sellers_fee, :image)
+		params.require(:product).permit(:product_name,:product_description,:price,:sellers_fee, :search_string, :image)
 	end
 
 end

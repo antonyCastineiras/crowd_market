@@ -15,6 +15,18 @@ ActiveRecord::Schema.define(version: 20161213152757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "adverts", force: :cascade do |t|
+    t.string   "width"
+    t.string   "height"
+    t.string   "left"
+    t.string   "top"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.integer  "product_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string   "text"
     t.datetime "created_at", null: false
@@ -42,6 +54,12 @@ ActiveRecord::Schema.define(version: 20161213152757) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "card_token"
   end
 
   create_table "posts", force: :cascade do |t|

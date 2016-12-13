@@ -21,13 +21,11 @@
           <% end %>
         <% end %>
         <% if @user %>
-            <span class= "dislike-<%= post.id %>">
-              <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
-            </span>
-            <span class= "like-<%= post.id %>">
-              <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like'  %>
-              <div class="up-<%= post.id %>"><%= post.get_upvotes.size %></div>
-            </span>
+          <% if current_user.voted_up_on?(post) %>
+            <%= link_to "Dislike", dislike_post_path(post), method: :put %>
+          <% else %>
+            <%= link_to "Like", like_post_path(post), method: :put %>
+          <% end %>
         <% end %>
         <div class="edit_and_delete_posts">
         <% if post.user == current_user %>
