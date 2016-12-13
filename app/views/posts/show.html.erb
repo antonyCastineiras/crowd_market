@@ -1,15 +1,6 @@
-<div id="post_<%= @post.id %>">
+<div id="post_<%= @post.id %>" class="text-center">
   <div class ="newsfeed">
     <div class="well">
-      <% if @post.user.has_image? %>
-        <div class="profile_pic"><%= image_tag @post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-      <% else %>
-        <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-      <% end %>
-      <div class="name_and_time">
-        <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
-        <span><%= @post.created_at.strftime("%d %b %Y %H:%M") %></span>
-      </div>
       <% if @post.image_file_name.nil? %>
         <h2><%= @post.text %></h2>
       <% else %>
@@ -20,15 +11,6 @@
           </div>
         </div>
       <% end %>
-      <% if @post.user == current_user %>
-        <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add adverts
-        <form id="create-ads-form" action="/adverts/create" method="post">
-          <input id="product_id" type="hidden" name="product_id" value="0" >
-          <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
-          <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
-          <input id="create-ad-button" type="submit" value="Create Ad" disabled>
-        </form>
-      <% end %>      
       <% if @user %>
         <% if current_user.voted_up_on?(@post) %>
           <span class="dislike-<%= @post.id %>">
@@ -39,8 +21,37 @@
             <%= link_to "Like", like_post_path(@post), method: :put, remote: true, class: 'like'  %>
           </span>
         <% end %>
+        <div class="up-<%= @post.id %>"><%= @post.get_upvotes.size %></div>
       <% end %>
-      <div class="up-<%= @post.id %>"><%= @post.get_upvotes.size %></div>
+
+
+      <div class='comments_div'>
+        <%= render @post.comments %>
+      </div>
+      <% if current_user %>
+        <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
+         <%= f.text_area :text, placeholder: 'Add a comment' %>
+         <%= f.submit 'Comment' %>
+        <% end %>
+      <% else %>
+        <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
+      <% end %>
+      <% if @post.user == current_user %>
+        <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add adverts
+        <form id="create-ads-form" action="/adverts/create" method="post">
+          <input id="product_id" type="hidden" name="product_id" value="0" >
+          <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
+          <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
+          <input id="create-ad-button" type="submit" value="Create Ad" disabled>
+        </form>
+      <% end %>      
+    
+     
+
+      <div class="name_and_time">
+        <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
+        <span><%= @post.created_at.strftime("%d %b %Y %H:%M") %></span>
+      </div>
 
       <div class="edit_and_delete_posts">
       <% if @post.user == current_user %>
@@ -52,17 +63,7 @@
         <% end %>
       <% end %>
       </div>
-      <div class='comments_div'>
-        <%= render @post.comments %>
-      </div>
-      <% if current_user %>
-        <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
-         <%= f.text_area :text, placeholder: 'Add a comment' %>
-         <%= f.submit 'Comment' %>
-      <% end %>
-      <% else %>
-        <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
-      <% end %>
+     
     </div>
   </div>
 
@@ -170,7 +171,7 @@ $(document).ready(function(){
          for (i=0; i<data.products.length; i++) {
           product = data.products[i]
           container.id = "suggested-products";
-          image = $('<img>').prop('src', './public/products/'+product.image_file_name);
+          image = $('<img>');
           heading = $('<h5></h5>').text(product.product_name);
           description = $('<p><p>').text(product.product_description);
           price = $('<p></p>').text('£'+product.price);

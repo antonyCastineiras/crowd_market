@@ -1,17 +1,8 @@
 <% if @posts.any? %>
   <% @posts.reverse.each do |post| %>
-    <div id="post_<%= post.id %>">
+    <div id="post_<%= post.id %>" class="text-center">
       <div class ="newsfeed">
         <div class="well">
-          <% if post.user.has_image? %>
-            <div class="profile_pic"><%= image_tag post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-          <% else %>
-            <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-          <% end %>
-        <div class="name_and_time">
-          <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-          <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
-        </div>
         <% if !post.image.exists? %>
           <h2> <%= post.text %> </h2>
         <% else %>
@@ -53,8 +44,13 @@
             <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
           <% end %>
         <% end %>
+         <div class="name_and_time">
+          <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+          <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+        </div>
         </div>
       </div>
+
     </div>
   <% end %>
 <% else %>
