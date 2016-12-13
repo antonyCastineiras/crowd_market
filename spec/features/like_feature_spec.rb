@@ -14,12 +14,12 @@ feature 'likes' do
     end
     scenario 'lets a user like a post' do
       like_post
-      expect(page).to have_content('Like 1')
+      expect(page).to have_content('1')
     end
     scenario 'lets a user unlike a post' do
       like_post
-      click_link 'Like'
-      expect(page).to have_content('Like 0')
+      click_link 'Unlike'
+      expect(page).to have_content('0')
     end
   end
 

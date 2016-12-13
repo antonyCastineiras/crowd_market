@@ -41,6 +41,7 @@ def create_post
   visit '/posts'
   click_link 'Create a post'
   fill_in 'Text', with: 'Hello World!'
+  attach_file('post[image]', './app/assets/images/practice_image.jpg')
   click_button 'Create Post'
 end
 
