@@ -24,6 +24,23 @@
             <% end %>
          		<% if current_user %>
               <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              <li>
+                <a id="friend-requests-link" href = "#">Friend Requests <% if @user.friend_requests.count > 0 %><span class = "badge"><%= @user.friend_requests.count %></span><% end %></a>
+                <div id="friend-requests-container">
+                  <% @user.friend_requests.each do |user| %>
+                    <div class="friend-request-details">
+                      <% if user.has_image? %>
+                        <%= image_tag(user.images.first.file(:thumbnail)) %>
+                      <% else %>
+                        <%= image_tag("default_user_image.png", size: "50") %>
+                      <% end %>
+                      <span class="user-full-name"><%= user.full_name %></span>
+                      <%= link_to "Accept Request", user_friendship_accept_path(current_user,user), class: "friend-request-button" %>
+                      <%= link_to "Reject Request", user_friendship_reject_path(current_user,user), class: "friend-request-button" %>
+                    </div>
+                  <% end %>
+                </div>
+              </li>
             <% elsif current_seller %>
               <li><%= link_to "Sign out", destroy_session_path(current_seller), method: :delete %></li>
             <% end %>
@@ -39,5 +56,15 @@
       <%= notice %>
       <%= yield %>
     </div>
+    <script>
+      $( function() {
+        $('#friend-requests-container').hide();
+      });
+
+      $('#friend-requests-link').click(function(event) {
+        event.preventDefault();
+        $('#friend-requests-container').toggle();
+      });
+    </script>
   </body>
 </html>

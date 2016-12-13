@@ -1,6 +1,6 @@
 $('.dislike').bind('ajax:success', function() {
 
  $('.up-<%= @post.id %>').text(<%= @post.get_upvotes.size%>);
- $('.down-<%= @post.id %>').text(<%= @post.get_downvotes.size%>);
+
 
 });
