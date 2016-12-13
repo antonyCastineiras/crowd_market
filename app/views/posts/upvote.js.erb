@@ -1,6 +1,7 @@
-$('.like').bind('ajax:success', function() {
+$('span.like-<%= @post.id %>').bind('ajax:success', function() {
 
-   $('.up-<%= @post.id %>').text(<%= @post.get_upvotes.size%>);
-  //  $('.like-<%= @post.id %>').replaceWith($('.dislike-<%= @post.id %>'));
-
+   $('.up-<%= @post.id %>').text(<%= @post.get_upvotes.size %>);
+   $('span.like-<%= @post.id %>').replaceWith(
+     '<span class="dislike-<%= @post.id %>"><%= link_to "Unlike", dislike_post_path(@post), method: :put, remote: true, class: 'dislike' %></span>'
+    );
 });
