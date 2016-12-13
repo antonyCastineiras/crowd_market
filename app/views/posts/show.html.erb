@@ -14,8 +14,21 @@
         <h2><%= @post.text %></h2>
       <% else %>
         <h2><%= @post.text %></h2>
-        <p><%= image_tag @post.image.url(:large) %></p>
+        <div id="canvas-wrap">
+          <canvas id="canvas"   style="background-image: url('<%= @post.image.url%>');"></canvas>
+          <div id="overlay">  
+          </div>
+        </div>
       <% end %>
+      <% if @post.user == current_user %>
+        <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add adverts
+        <form id="create-ads-form" action="/adverts/create" method="post">
+          <input id="product_id" type="hidden" name="product_id" value="0" >
+          <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
+          <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
+          <input id="create-ad-button" type="submit" value="Create Ad" disabled>
+        </form>
+      <% end %>      
       <% if @user %>
         <% if current_user.voted_up_on?(@post) %>
           <span class="dislike-<%= @post.id %>">
@@ -52,8 +65,6 @@
       <% end %>
     </div>
   </div>
-</div>
-
 
 <!--Hover script-->
 <script>
@@ -61,3 +72,156 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
 });
 </script>
+
+<% if current_user == @post.user %>
+  <script>
+
+
+    initDraw(document.getElementById('canvas'));
+
+    function initDraw(canvas) {
+
+      function setMousePosition(e) {
+        var ev = e || window.event;
+        if (ev.pageX) { //Moz
+          mouse.x = ev.pageX -  $('#canvas-wrap').offset().left;
+          mouse.y = ev.pageY -  $('#canvas-wrap').offset().top;
+        } else if (ev.clientX) { //IE
+          mouse.x = ev.clientX -  $('#canvas-wrap').offset().left;
+          mouse.y = ev.clientY -  $('#canvas-wrap').offset().top;
+        }
+      }
+
+      var mouse = {
+        x: 0,
+        y: 0,
+        startX: 0,
+        startY: 0
+      };
+      var element = null;
+
+      canvas.onmousemove = function(e) {
+        setMousePosition(e);
+        if (element !== null) {
+          element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
+          element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
+          element.style.left = (mouse.x - mouse.startX) < 0 ? mouse.x + 'px' : mouse.startX + 'px';
+          element.style.top = (mouse.y - mouse.startY) < 0 ? mouse.y = 'px' : mouse.startY + 'px'; 
+        }
+      }
+
+      var overlay = document.getElementById('overlay');
+
+      canvas.onclick = function(e) {
+        if (element !== null) {
+          $('.new-ad').on('click', function(event) {
+            this.remove();
+            $('#create-ad-button').prop('disabled',true);
+          });
+          convertStylesToPercentages();
+          element.style.border = "1px solid #fff";
+          element = null;
+          displayProductSearch();
+          canvas.style.cursor = "default";
+        } else if ($('.new-ad').length < 1 && document.getElementById('adverts-checkbox').checked == true) {
+          $('#create-ad-button').prop('disabled',false);
+          mouse.startX = mouse.x;
+          mouse.startY = mouse.y;
+          element = document.createElement('div');
+          element.className = 'new-ad';
+          element.style.left = mouse.x + 'px';
+          element.style.top = mouse.y + 'px';
+          element.style.border = "1px dashed #fff"
+          canvas.style.cursor = "crosshair";
+          overlay.appendChild(element);
+        }
+      }
+
+      var changeTimer = false;
+
+      function displayProductSearch() {
+        input = document.createElement('input');
+        input.id = 'product-search-input';
+        input.placeholder = 'Search for product';
+        //set search inputs onclick event here
+        input.onclick =function(event) {
+            event.stopPropagation();
+        };
+        // set search inputs onchange here
+        input.onchange = function() {
+          $.ajax({
+            url: '/products/get',
+            type: 'get',
+            data: {
+              search_string : input.value,
+            },
+            dataType: 'json',
+            success : function(data) {
+              appendSuggestedProducts(data);
+            }
+          })
+        };
+        $('.new-ad').append(input)
+      }
+
+      function appendSuggestedProducts(data) {
+        container = document.createElement('div');
+         for (i=0; i<data.products.length; i++) {
+          product = data.products[i]
+          container.id = "suggested-products";
+          image = $('<img>');
+          heading = $('<h5></h5>').text(product.product_name);
+          description = $('<p><p>').text(product.product_description);
+          price = $('<p></p>').text('£'+product.price);
+          addItem = $('<a class="addItem">Add this Item</a>');
+          addItem.click(function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            $('#product_id').prop('value',product.id);
+            $('#suggested-products, #product-search-input').remove();
+          });
+          suggestedProductContainer = $('<div></div>').prop('class',"suggested-product-container")
+          $(suggestedProductContainer).append(image,heading,description,price,addItem);
+          $(container).append(suggestedProductContainer);
+         }
+
+        $('.new-ad').append(container); 
+
+      }
+
+      function convertStylesToPercentages() {
+        element.style.width = ( ( $(element).outerWidth() / $('#overlay').width() ) * 100 ) + "%";
+        element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
+        element.style.left = ( ( $(element).position().left / $('#overlay').width() ) * 100 ) + "%";
+        element.style.top = ( ( $(element).position().top / $('#canvas').height() ) * 100 ) + "%";
+      }
+    }
+
+    $('#create-ad-button').click(function(event) {
+      var newAd = $('.new-ad')[0];
+
+
+      event.preventDefault();
+      $.ajax({
+        url: '/adverts/create',
+        type: 'post',
+        data: {
+               width: newAd.style.width, 
+               height: newAd.style.height, 
+               left: newAd.style.left, 
+               top: newAd.style.top,
+               product_id: $('#product_id').prop('value'),
+               post_id : $('#post_id').prop('value'),
+               user_id : $('#user_id').prop('value'),
+              },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data+ "was sent")
+          $('.new-ad').remove();
+          $('#create-ad-button').prop('disabled',true);
+        }
+      });
+    });
+
+  </script>
+<% end %>
