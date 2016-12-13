@@ -109,26 +109,60 @@
         }
       }
 
+      var changeTimer = false;
+
       function displayProductSearch() {
         input = document.createElement('input');
         input.id = 'product-search-input';
         input.placeholder = 'Search for product';
+        //set search inputs onclick event here
         input.onclick =function(event) {
             event.stopPropagation();
         };
+        // set search inputs onchange here
         input.onchange = function() {
           $.ajax({
-
+            url: '/products/get',
+            type: 'get',
+            data: {
+              search_string : input.value,
+            },
+            dataType: 'json',
+            success : function(data) {
+              appendSuggestedProducts(data);
+            }
           })
         };
         $('.new-ad').append(input)
       }
 
+      function appendSuggestedProducts(data) {
+        container = document.createElement('div');
+         for (i=0; i<data.products.length; i++) {
+          product = data.products[i]
+          container.id = "suggested-products";
+          image = $('<img>');
+          heading = $('<h5></h5>').text(product.product_name);
+          description = $('<p><p>').text(product.product_description);
+          price = $('<p></p>').text('£'+product.price);
+          suggestedProductContainer = $('<div></div>').prop('class',"suggested-product-container")
+          $(suggestedProductContainer).append(image,heading,description,price);
+          $(container).append(suggestedProductContainer);
+         }
+        row = $('<div></div>').prop('class','row');
+        backLink = $('<a>Previous</a>').prop('id','back-link','class')
+        nextLink = $('<a>Next</a>').prop('id','next-link')
+        $(row).append(row, backLink, nextLink)
+        $(container).append(row);
+        $('.new-ad').append(container); 
+
+      }
+
       function convertStylesToPercentages() {
         element.style.width = ( ( $(element).outerWidth() / $('#overlay').width() ) * 100 ) + "%";
-          element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
-          element.style.left = ( ( $(element).position().left / $('#overlay').width() ) * 100 ) + "%";
-          element.style.top = ( ( $(element).position().top / $('#canvas').height() ) * 100 ) + "%";
+        element.style.height = ( ( $('.new-ad').height() / $('#canvas').height() ) * 100 ) + "%";
+        element.style.left = ( ( $(element).position().left / $('#overlay').width() ) * 100 ) + "%";
+        element.style.top = ( ( $(element).position().top / $('#canvas').height() ) * 100 ) + "%";
       }
     }
 
@@ -140,7 +174,8 @@
       $.ajax({
         url: '/adverts/create',
         type: 'post',
-        data: {width: newAd.style.width, 
+        data: {
+               width: newAd.style.width, 
                height: newAd.style.height, 
                left: newAd.style.left, 
                top: newAd.style.top,

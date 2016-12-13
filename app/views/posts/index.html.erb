@@ -22,7 +22,7 @@
         <% end %>
         <% if @user %>
           <% if current_user.voted_up_on?(post) %>
-            <%= link_to "Like", dislike_post_path(post), method: :put %>
+            <%= link_to "Dislike", dislike_post_path(post), method: :put %>
           <% else %>
             <%= link_to "Like", like_post_path(post), method: :put %>
           <% end %>
