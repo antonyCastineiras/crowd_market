@@ -2,13 +2,14 @@ class Users::PagesController < ApplicationController
 
   def show
     @friends_posts = []
+    User.find(params[:id]) == current_user ? @user = current_user : @user = User.find(params[:id])
     if current_user
       get_posts_from_friends
+    elsif @user
+      p "f"
     end
-    User.find(params[:id]) == current_user ? @user = current_user : @user = User.find(params[:id])
     @image = Image.new
     @friendship = Friendship.new
-    @posts = Post.all
   end
 
   def sign_in
