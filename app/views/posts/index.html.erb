@@ -26,8 +26,9 @@
           <% else %>
             <%= link_to "Like", like_post_path(post), method: :put %>
           <% end %>
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          | <span class="glyphicon glyphicon-thumbs-up"></span>
         <%= "#{post.get_upvotes.size} " %>
+        <hr class ="divider">
         <div class="edit_and_delete_posts">
           <div class="dropdown div-inline">
             <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
@@ -38,7 +39,7 @@
             </ul>
           </div>
         </div>
-          <div class='comments_div'> <br>
+          <div class='comments_div'>
             <%= render post.comments %>
           </div>
           <% if current_user %>

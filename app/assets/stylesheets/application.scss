@@ -27,7 +27,6 @@ body {
   padding-top: 100px;
   font-family: 'Roboto Condensed', sans-serif;
   background-color: #f4f1ec;
-  background-image: url(http://leaders.lolrus.mediamolecule.com/bg-jobs.jpg?mtime=20140604125115);
 }
 
 #logo {
@@ -59,8 +58,15 @@ body {
     padding-right: 5px;
 }
 
-.homepage_comments {
-  font-size: 11px;
+.comment_time {
+  font-size: 11.5px;
+}
+
+.divider {
+  height:1px;
+  border:none;
+  color:#333;
+  background-color:#D7D3D3
 }
 
 .div-inline {

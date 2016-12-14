@@ -1,7 +1,9 @@
 <div id="comment">
   <a href="/users/<%= comment.user.id %>/show"><%= comment.user.first_name %> <%= comment.user.last_name %></a>
-  <%= comment.text %> <br>
-  <%= comment.created_at.strftime("%d %b %Y %H:%M") %>
+    <%= comment.text %> <br>
+    <span class="comment_time">
+      <%= comment.created_at.strftime("%d %b %Y %H:%M") %>
+    </span>
     <% if comment.user == current_user %>
       <%= link_to edit_comment_path(comment) do %>
         <span class="glyphicon glyphicon-pencil gi-2x" data-toggle="popover" data-trigger="hover" data-content="Edit"></span>
