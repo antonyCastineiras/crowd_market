@@ -8,6 +8,7 @@
     <div class="buy-button">
       <%= form_tag charges_path do %>
         <article>
+          <input type="hidden" name="amount" value="<%= (@product.price.to_f * 100).to_i %>">
           <% if flash[:error].present? %>
             <div id="error_explanation">
               <p><%= flash[:error] %></p>
