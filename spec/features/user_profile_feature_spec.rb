@@ -38,4 +38,12 @@ feature 'Profile page' do
     end
   end
 
+  context 'User can see friends posts in user profile' do
+    it 'should display friends posts' do
+      create_post
+      click_link 'Profile'
+      add_friend
+      expect(page).to have_content('Hello World!')
+    end
+  end
 end
