@@ -4,6 +4,7 @@ class Users::PagesController < ApplicationController
     User.find(params[:id]) == current_user ? @user = current_user : @user = User.find(params[:id])
     @image = Image.new
     @friendship = Friendship.new
+    @posts = Post.all
   end
 
   def sign_in
