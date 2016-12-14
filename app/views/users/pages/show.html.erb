@@ -51,8 +51,7 @@
 	</div>
 
 <h1 class="text-center">Recent posts of your friends:</h1>
-	<% current_user.friends.each do |friend| %>
-		<% friend.posts.reverse.each do |post| %>
+		<% @friends_posts.each do |post| %>
 			<div id="post_<%= post.id %>" class="text-center">
 			<div class ="newsfeed">
 				<h2><%= link_to post.text, post_path(post) %></h2>
@@ -67,7 +66,7 @@
 			 </div>
 		 </div>
 		<% end %>
-	<% end %>
+
 
 
 
