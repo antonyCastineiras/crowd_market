@@ -13,7 +13,7 @@
               <div id="post-image" style="background-image: url('<%= @post.image.url%>');">
                 <% if @post.adverts.any? %>
                   <% @post.adverts.each do |advert| %>
-                    <div class="user-ad" style="width:<%= advert.width %>; height:<%= advert.height %>; top:<%= advert.top %>; left:<%= advert.left %>;" data-productname="<%= advert.product.product_name %>"></div>
+                    <div class="user-ad" style="width:<%= advert.width %>; height:<%= advert.height %>; top:<%= advert.top %>; left:<%= advert.left %>;" data-productname="<%= advert.product.product_name %>"><a href="<%= buy_through_ad_path(advert.product.seller,advert.product,@post.user) %>" class="buy-product-through-ad-link"></a></div>
                   <% end %>
                 <% end %>
               </div>
