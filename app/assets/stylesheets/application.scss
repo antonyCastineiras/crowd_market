@@ -194,11 +194,33 @@ body {
   box-shadow: 2px 1px 6px #a0a0a0;
 }
 
-#overlay {
- 
+.user-ad {
+  position: absolute;
 }
 
-#canvas {
+
+.user-ad:hover {
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+.overlay, #post-image {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hidden-overlay {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#canvas, #post-image {
   background-image: url('practice_image.jpg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -245,4 +267,14 @@ body {
 .suggested-product-container img {
   width: 100px;
   height: 100px;
+}
+
+.product-name {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #000;
+  display: block;
+  color: #fff;
+  padding: 5px 12px;
 }
