@@ -6,8 +6,8 @@
       <% else %>
         <h2><%= @post.text %></h2>
         <div id="canvas-wrap">
-          <canvas id="canvas"   style="background-image: url('<%= @post.image.url%>');"></canvas>
-          <div id="overlay">  
+          <canvas id="canvas" style="background-image: url('<%= @post.image.url%>');"></canvas>
+          <div id="overlay">
           </div>
         </div>
       <% end %>
@@ -44,9 +44,9 @@
           <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
           <input id="create-ad-button" type="submit" value="Create Ad" disabled>
         </form>
-      <% end %>      
-    
-     
+      <% end %>
+
+
 
       <div class="name_and_time">
         <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
@@ -63,7 +63,7 @@
         <% end %>
       <% end %>
       </div>
-     
+
     </div>
   </div>
 
@@ -107,7 +107,7 @@ $(document).ready(function(){
           element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
           element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
           element.style.left = (mouse.x - mouse.startX) < 0 ? mouse.x + 'px' : mouse.startX + 'px';
-          element.style.top = (mouse.y - mouse.startY) < 0 ? mouse.y = 'px' : mouse.startY + 'px'; 
+          element.style.top = (mouse.y - mouse.startY) < 0 ? mouse.y = 'px' : mouse.startY + 'px';
         }
       }
 
@@ -187,7 +187,7 @@ $(document).ready(function(){
           $(container).append(suggestedProductContainer);
          }
 
-        $('.new-ad').append(container); 
+        $('.new-ad').append(container);
 
       }
 
@@ -208,9 +208,9 @@ $(document).ready(function(){
         url: '/adverts/create',
         type: 'post',
         data: {
-               width: newAd.style.width, 
-               height: newAd.style.height, 
-               left: newAd.style.left, 
+               width: newAd.style.width,
+               height: newAd.style.height,
+               left: newAd.style.left,
                top: newAd.style.top,
                product_id: $('#product_id').prop('value'),
                post_id : $('#post_id').prop('value'),
