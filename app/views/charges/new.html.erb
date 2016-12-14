@@ -1,18 +1,30 @@
-<%= form_tag charges_path do %>
-  <article>
-    <% if flash[:error].present? %>
-      <div id="error_explanation">
-        <p><%= flash[:error] %></p>
-      </div>
-    <% end %>
-    <label class="amount">
-      <span>Amount: $5.00</span>
-    </label>
-  </article>
+<div class="row">
+  <div class="product-details col-md-6 col-md-offset-3 text-center">
+    
+    <h1 class="h1 "><%= @product.product_name %></h1>
+    <%= image_tag @product.image.url, class: "buy-product-image" %>
+    <p class="buy-product-details"><%= @product.product_description %></p>
+    <p class="product-seller"><%= @seller.email %></p>
+    <div class="buy-button">
+      <%= form_tag charges_path do %>
+        <article>
+          <input type="hidden" name="amount" value="<%= (@product.price.to_f * 100).to_i %>">
+          <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+          <% end %>
+          <label class="amount">
+            <span>£<%= @product.price %></span>
+          </label>
+        </article>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
-          data-amount="500"
-          data-locale="auto"></script>
-<% end %>
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-description="<%= @product.product_name %>"
+                data-amount="<%= @product.price.to_f * 100 %>"
+                data-locale="auto"></script>
+      <% end %>
+    </div>
+  </div>
+</div> 

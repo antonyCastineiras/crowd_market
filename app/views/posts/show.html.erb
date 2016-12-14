@@ -5,12 +5,22 @@
         <h2><%= @post.text %></h2>
       <% else %>
         <h2><%= @post.text %></h2>
-        <div id="canvas-wrap">
-          <canvas id="canvas"   style="background-image: url('<%= @post.image.url%>');"></canvas>
-          <div id="overlay">  
+          <div id="canvas-wrap">
+            <% if @post.user == current_user %>
+              <canvas id="canvas"   style="background-image: url('<%= @post.image.url%>');"></canvas>
+              <div id="overlay"></div>
+            <% else %>
+              <div id="post-image" style="background-image: url('<%= @post.image.url%>');">
+                <% if @post.adverts.any? %>
+                  <% @post.adverts.each do |advert| %>
+                    <div class="user-ad" style="width:<%= advert.width %>; height:<%= advert.height %>; top:<%= advert.top %>; left:<%= advert.left %>;" data-productname="<%= advert.product.product_name %>"><a href="<%= buy_through_ad_path(advert.product.seller,advert.product,@post.user) %>" class="buy-product-through-ad-link"></a></div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
-        </div>
-      <% end %>
+       <% end %>
+
       <% if @user %>
         <% if current_user.voted_up_on?(@post) %>
           <span class="dislike-<%= @post.id %>">
@@ -225,5 +235,21 @@ $(document).ready(function(){
       });
     });
 
+    
+
   </script>
 <% end %>
+
+<script type="text/javascript">
+  $('.user-ad').on('mouseenter', function(event) {
+      p = $('<p class="product-name"></p>')
+      p.text(this.attributes['data-productname'].textContent);
+      console.log(this,p);
+      $(this).append(p);
+    });
+
+  $('.user-ad').on('mouseleave', function(event) {
+      p = $('.user-ad p');
+      p.remove();
+    });
+</script>
