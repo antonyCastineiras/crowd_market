@@ -50,22 +50,24 @@
 
 	</div>
 
-<h1 class="text-center">Recent posts of your friends:</h1>
-		<% @friends_posts.each do |post| %>
-			<div id="post_<%= post.id %>" class="text-center">
-			<div class ="newsfeed">
-				<h2><%= link_to post.text, post_path(post) %></h2>
-						<%= link_to post_path(post) do %>
-							<% if post.image.exists? %>
-								<p><%= image_tag post.image.url(:medium) %></p>
+<% if current_user %>
+	<h1 class="text-center">Recent posts of your friends:</h1>
+			<% @friends_posts[0..4].each do |post| %>
+				<div id="post_<%= post.id %>" class="text-center">
+				<div class ="newsfeed">
+					<h2><%= link_to post.text, post_path(post) %></h2>
+							<%= link_to post_path(post) do %>
+								<% if post.image.exists? %>
+									<p><%= image_tag post.image.url(:medium) %></p>
+								<% end %>
 							<% end %>
-						<% end %>
-				<div class="name_and_time">
-				 	<a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-				 	<span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+					<div class="name_and_time">
+					 	<a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+					 	<span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+				 </div>
 			 </div>
-		 </div>
-		<% end %>
+			<% end %>
+<% end %>
 
 
 
