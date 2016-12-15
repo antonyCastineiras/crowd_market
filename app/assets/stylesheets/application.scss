@@ -350,89 +350,104 @@ body {
 /*================
   sign_up styles
 ================*/
-
-::selection {
-  background-color: #b5e2e7;
+.signup-bg {
+  background-image: url(https://grouptoursbooking.com/wp-content/uploads/2016/08/Cai-Rang-Floating-Market-Vietnam-Travel.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.signin-bg {
+  background-image: url(http://wallpapercave.com/wp/wIyKjjQ.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-::-moz-selection {
-  background-color: #8ac7d8;
+#user-form div {
+
 }
 
-.signup_container {
-  display: -webkit-flex;
-  display: flex;
-  height: 100%;
+.flip-container {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:400px;
 }
 
-#logbox {
-  padding: 10px;
-  margin: 50px auto;
-  width: 340px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+.flip {
+    backface-visibility:             hidden;
+        -moz-backface-visibility:    hidden;
+        -ms-backface-visibility:     hidden;
+        -o-backface-visibility:      hidden;
+        -webkit-backface-visibility: hidden;
+    border: 1px solid grey;
+    border-radius: 15px 50px;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font: normal 14px helvetica, arial, san serif;
+    padding: 10px;
+    position: absolute;
+    transform-origin:             50% 50% 0px;
+        -moz-transform-origin:    50% 50% 0px;
+        -ms-transform-origin:     50% 50% 0px;
+        -o-transform-origin:      50% 50% 0px;
+        -webkit-transform-origin: 50% 50% 0px;
+    transition: all 1s;
+        -moz-transition:    all 1s;
+        -ms-transition:     all 1s;
+        -o-transition:      all 1s;
+        -webkit-transition: all 1s;
+    display: flex;
+    justify-content: center;
+    width:40%;
+    z-index: 100;
+    background-color: #f4f1ec;
+    opacity: 0.9;
+  }
+
+#side-1 {
+    transform:             rotateY( 0deg );
+        -moz-transform:    rotateY( 0deg );
+        -ms-transform:     rotateY( 0deg );
+        -o-transform:      rotateY( 0deg );
+        -webkit-transform: rotateY( 0deg );
 }
 
-.signup_container h1 {
-  text-align: center;
-  font-size: 175%;
-  color: #757575;
-  font-weight: 300;
+#side-2 {
+    transform:             rotateY( 180deg );
+        -moz-transform:    rotateY( 180deg );
+        -ms-transform:     rotateY( 180deg );
+        -o-transform:      rotateY( 180deg );
+        -webkit-transform: rotateY( 180deg );
 }
 
-.signup_container h1, input {
-  font-family: "Open Sans", Helvetica, sans-serif;
+.flip-side-1 {
+    transform:             rotateY( 0deg ) !important;
+        -moz-transform:    rotateY( 0deg ) !important;
+        -ms-transform:     rotateY( 0deg ) !important;
+        -o-transform:      rotateY( 0deg ) !important;
+        -webkit-transform: rotateY( 0deg ) !important;
 }
 
-.input {
-  width: 75%;
-  height: 50px;
-  display: block;
-  margin: 0 auto 15px;
-  padding: 0 15px;
-  border: none;
-  border-bottom: 2px solid #ebebeb;
-}
-.input:focus {
-  outline: none;
-  border-bottom-color: #3CC !important;
-}
-.input:hover {
-  border-bottom-color: #dcdcdc;
-}
-.input:invalid {
-  box-shadow: none;
+.flip-side-2 {
+    transform:             rotateY( 180deg ) !important;
+        -moz-transform:    rotateY( 180deg ) !important;
+        -ms-transform:     rotateY( 180deg ) !important;
+        -o-transform:      rotateY( 180deg ) !important;
+        -webkit-transform: rotateY( 180deg ) !important;
 }
 
-.pass:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
+input {
+    display: block;
+    margin: 3px 0;
+    width: 294px;
 }
 
-.inputButton {
-  position: relative;
-  width: 85%;
-  height: 50px;
-  display: block;
-  margin: 30px auto 30px;
-  color: white;
-  background-color: #3CC;
-  border: none;
-  -webkit-box-shadow: 0 5px 0 #2CADAD;
-  -moz-box-shadow: 0 5px 0 #2CADAD;
-  box-shadow: 0 5px 0 #2CADAD;
-}
-.inputButton:hover {
-  top: 2px;
-  -webkit-box-shadow: 0 3px 0 #2CADAD;
-  -moz-box-shadow: 0 3px 0 #2CADAD;
-  box-shadow: 0 3px 0 #2CADAD;
-}
-.inputButton:active {
-  top: 5px;
-  box-shadow: none;
-}
-.inputButton:focus {
-  outline: none;
+#login {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    display: block;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+    width: 50px;
 }
