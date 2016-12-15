@@ -36,7 +36,10 @@ Rails.application.routes.draw do
     resources :friendships
   end
 
-  resources :charges
+  resources :charges do
+  end
+  
+  get '/:seller_id/:product_id/:advertiser_id/payment' => 'charges#new', as: 'buy_through_ad'
 
 
   get '/sign_in' => 'users/pages#sign_in', as: 'sign_in'

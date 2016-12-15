@@ -1,21 +1,35 @@
-    <div id="post_<%= @post.id %>">
-      <div class ="newsfeed">
-        <div class="well">
-          <% if @post.user.has_image? %>
-           <div class="profile_pic"><%= image_tag @post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-         <% else %>
-           <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-         <% end %>
-       <div class="name_and_time">
-         <a href="/users/<%= @post.user.id %>/show"><%= @post.user.first_name %> <%= @post.user.last_name %></a><br>
-         <span><%= @post.created_at.strftime("%d %b %Y %H:%M") %></span>
-       </div><br />
-        <% unless @post.image.exists? %>
-          <h4> <%= @post.text %> </h4>
+<div id="post_<%= @post.id %>" class="text-center">
+  <div class ="newsfeed">
+    <div class="well">
+      <% if @post.image_file_name.nil? %>
+        <h2><%= @post.text %></h2>
+      <% else %>
+        <h2><%= @post.text %></h2>
+          <div id="canvas-wrap">
+            <% if @post.user == current_user %>
+              <canvas id="canvas"   style="background-image: url('<%= @post.image.url%>');"></canvas>
+              <div id="overlay"></div>
+            <% else %>
+              <div id="post-image" style="background-image: url('<%= @post.image.url%>');">
+                <% if @post.adverts.any? %>
+                  <% @post.adverts.each do |advert| %>
+                    <div class="user-ad" style="width:<%= advert.width %>; height:<%= advert.height %>; top:<%= advert.top %>; left:<%= advert.left %>;" data-productname="<%= advert.product.product_name %>"><a href="<%= buy_through_ad_path(advert.product.seller,advert.product,@post.user) %>" class="buy-product-through-ad-link"></a></div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+       <% end %>
+
+      <% if @user %>
+        <% if current_user.voted_up_on?(@post) %>
+          <span class="dislike-<%= @post.id %>">
+            <%= link_to "Unlike", dislike_post_path(@post), method: :put, remote: true, class: 'dislike' %>
+          </span>
         <% else %>
           <h4> <%= link_to @post.text, post_path(@post) %> </h4>
           <%= link_to post_path(@post) do %>
-            <p><%= image_tag @post.image.url(:medium) %></p>
+            
           <% end %>
         <% end %>
         <% if @user %>
@@ -23,48 +37,52 @@
             <span class="dislike-<%= @post.id %>">
               <%= link_to "Unlike", dislike_post_path(@post), method: :put, remote: true, class: 'dislike' %>
             </span>
-            <% else %>
+          <% else %>
             <span class="like-<%= @post.id %>">
               <%= link_to "Like", like_post_path(@post), method: :put, remote: true, class: 'like'  %>
             </span>
-            <% end %>
-          | <span class="glyphicon glyphicon-thumbs-up"></span>
+          <% end %>
+          <span class="glyphicon glyphicon-thumbs-up"></span>
           <span class="up-<%= @post.id %>"><%= @post.get_upvotes.size %></span>
+        <% end %>
         <hr class ="divider">
-        <div class="edit_and_delete_posts">
-          <div class="dropdown div-inline">
-            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Edit Post", edit_post_url(@post) %></li>
-              <li><%= link_to "Delete Post", post_path(@post), method: :delete %></li>
-            </ul>
+        <% if @post.user == current_user %>
+          <div class="edit_and_delete_posts">
+            <div class="dropdown div-inline">
+              <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Edit Post", edit_post_url(@post) %></li>
+                <li><%= link_to "Delete Post", post_path(@post), method: :delete %></li>
+              </ul>
+            </div>
           </div>
-        </div>
+        <% end %>
           <div class='comments_div'>
-             <%= render @post.comments %>
+            <%= render @post.comments %>
           </div>
           <% if current_user %>
             <%= form_for [@post, @post.comments.new ], remote: true do |f| %>
               <%= f.text_area :text, placeholder: 'Add a comment' %>
               <%= f.submit 'Comment' %>
-              <% end %>
+            <% end %>
           <% else%>
             <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
           <% end %>
         <% end %>
         <% if @post.user == current_user %>
-         <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add advert
-         <form id="create-ads-form" action="/adverts/create" method="post">
-           <input id="product_id" type="hidden" name="product_id" value="0" >
-           <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
-           <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
-           <input id="create-ad-button" type="submit" value="Create Ad" disabled>
-         </form>
-       <% end %>
-        </div>
+          <input id="adverts-checkbox" type="checkbox" name="adverts" value="adverts">Add advert
+          <form id="create-ads-form" action="/adverts/create" method="post">
+            <input id="product_id" type="hidden" name="product_id" value="0" >
+            <input id="post_id" type="hidden" name="post_id" value="<%= params[:id] %>" >
+            <input id="user_id" type="hidden" name="user_id" value="<%= current_user.id %>" >
+            <input id="create-ad-button" type="submit" value="Create Ad" disabled>
+          </form>
+        <% end %>
       </div>
-
+    </div>
+  </div>
+</div>
 
 <!--Hover script-->
 <script>
@@ -224,5 +242,22 @@ $(document).ready(function(){
       });
     });
 
+    
+
   </script>
 <% end %>
+
+<script type="text/javascript">
+  $('.user-ad').on('mouseenter', function(event) {
+      p = $('<p class="product-name"></p>')
+      p.text(this.attributes['data-productname'].textContent);
+      console.log(this,p);
+      $(this).append(p);
+    });
+
+  $('.user-ad').on('mouseleave', function(event) {
+      p = $('.user-ad p');
+      p.remove();
+    });
+  
+</script>

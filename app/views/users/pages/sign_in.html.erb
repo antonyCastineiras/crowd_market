@@ -1,72 +1,69 @@
-<ul id="sign-in-tabs" class="nav">
-	<li><a href="" class="tablinks active" onclick="displayForm(event,'user-form')">Sign in as User</a></li>
-	<li><a href="" class="tablinks" onclick="displayForm(event,'seller-form')">Sign in as Seller</a></li>
-</ul>
-
-<div id="user-form" class="tab-content">
-  <h2>Log in as User</h2>
-
-	<%= form_for @user, as: :user, :url => session_path(:user) do |f| %>
-	  <div class="field">
-	    <%= f.label :email %><br />
-	    <%= f.email_field :email, autofocus: true %>
-	  </div>
-
-	  <div class="field">
-	    <%= f.label :password %><br />
-	    <%= f.password_field :password, autocomplete: "off" %>
-	  </div>
-
-	    <div class="field">
-	      <%= f.check_box :remember_me %>
-	      <%= f.label :remember_me %>
-	    </div>
-	  
-
-	  <div class="actions">
-	    <%= f.submit "Log in", :id => "user-log-in-button" %>
-	  </div>
-	<% end %>
-
-</div>
-
-<div id="seller-form" class="tab-content">
-  <h2>Log in as Seller</h2>
-
-  <%= form_for @seller, as: :seller, :url => session_path(:seller) do |f| %>
-	  <div class="field">
-	    <%= f.label :email %><br />
-	    <%= f.email_field :email, autofocus: true %>
-	  </div>
-
-	  <div class="field">
-	    <%= f.label :password %><br />
-	    <%= f.password_field :password, autocomplete: "off" %>
-	  </div>
-
-	    <div class="field">
-	      <%= f.check_box :remember_me %>
-	      <%= f.label :remember_me %>
-	    </div>
-	  
-
-	  <div class="actions">
-	    <%= f.submit "Log in", :id => "seller-log-in-button" %>
-	  </div>
-	<% end %>
+<body class ="signin-bg">
+<div class="flip-container">
+	<div id="side-1" class="flip">
+		<div id="user-form">
+		  <h2>Log in as User</h2>
+			<%= form_for @user, as: :user, :url => session_path(:user) do |f| %>
+			  <div class="field">
+			    <%= f.label :email %><br />
+			    <%= f.email_field :email, autofocus: true %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :password %><br />
+			    <%= f.password_field :password, autocomplete: "off" %>
+			  </div>
+		    <div class="field">
+		      <%= f.check_box :remember_me %>
+		      <%= f.label :remember_me %>
+		    </div>
+			  <div class="actions">
+			    <%= f.submit "Log in", :id => "user-log-in-button" %>
+			  </div>
+			<% end %>
+			<a id="signup" href="#">OR sign in as a SELLER??</a>
+		</div>
+	</div>
+	<div id="side-2" class="flip">
+		<div id="seller-form">
+			<h2>Log in as Seller</h2>
+		  <%= form_for @seller, as: :seller, :url => session_path(:seller) do |f| %>
+			  <div class="field">
+			    <%= f.label :email %><br />
+			    <%= f.email_field :email, autofocus: true %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :password %><br />
+			    <%= f.password_field :password, autocomplete: "off" %>
+			  </div>
+		    <div class="field">
+		      <%= f.check_box :remember_me %>
+		      <%= f.label :remember_me %>
+		    </div>
+			  <div class="actions">
+			    <%= f.submit "Log in", :id => "seller-log-in-button" %>
+			  </div>
+			<% end %>
+			<a id="create" href="#">OR sign up as a USER??</a>
+		</div>
+	</div>
 </div>
 
 
 <script>
-$().ready(function() {
-	$('#user-form').show();
-});
+document.getElementById( 'signup' ).addEventListener( 'click', function( event ) {
 
-	function displayForm(event,formId) {
-		event.preventDefault();
-		$('.tablinks').removeClass('active');
-		$(event.target).addClass('active');
-		$('.tab-content').hide();
-		$('#'+formId).show();
-	}
+    event.preventDefault();
+    document.getElementById( 'side-2' ).className = 'flip flip-side-1';
+    document.getElementById( 'side-1' ).className = 'flip flip-side-2';
+
+}, false );
+
+document.getElementById( 'create' ).addEventListener( 'click', function( event ) {
+
+    event.preventDefault();
+    document.getElementById( 'side-2' ).className = 'flip';
+    document.getElementById( 'side-1' ).className = 'flip';
+
+}, false );
+
 </script>
