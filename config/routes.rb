@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
 
   get '/sign_in' => 'users/pages#sign_in', as: 'sign_in'
+  get '/sign_up' => 'users/pages#sign_up', as: 'sign_up'
+
   get 'users/:id/show' => 'users/pages#show', as: 'user_profile'
   get 'sellers/:id/show' => 'sellers/pages#show', as: 'seller_profile'
   get 'users/:id/friendships/:friend_id/accept' => 'friendships#accept', as: 'user_friendship_accept'

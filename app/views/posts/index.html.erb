@@ -1,39 +1,53 @@
+<span class="intro_message">
+  <p>News to share? Friends to update? Items to sell? Then go ahead and <%= link_to "Create a post.", new_post_path %></p>
+</span>
 <% if @posts.any? %>
   <% @posts.reverse.each do |post| %>
-    <div id="post_<%= post.id %>" class="text-center">
+    <div id="post_<%= post.id %>">
       <div class ="newsfeed">
         <div class="well">
-        <% if !post.image.exists? %>
-          <h2> <%= post.text %> </h2>
+        <% if post.user.has_image? %>
+          <div class="profile_pic"><%= image_tag post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
         <% else %>
-          <h2> <%= link_to post.text, post_path(post) %> </h2>
-          <%= link_to post_path(post) do %>
-            <p><%= image_tag post.image.url(:medium) %></p>
-          <% end %>
+          <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
         <% end %>
-        <% if @user %>
-          <% if current_user.voted_up_on?(post) %>
-            <span class="dislike-<%= post.id %>">
-              <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
-            </span>
+          <div class="name_and_time">
+            <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+            <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+          </div><br />
+          <% unless post.image.exists? %>
+            <h4> <%= post.text %> </h4>
           <% else %>
-            <span class="like-<%= post.id %>">
-              <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like'  %>
-            </span>
+            <h4> <%= link_to post.text, post_path(post) %> </h4>
+            <%= link_to post_path(post) do %>
+            <p><%= image_tag post.image.url(:medium) %></p>
+            <% end %>
           <% end %>
-        <% end %>
-        <div class="up-<%= post.id %>"><%= post.get_upvotes.size %></div>
+          <% if @user %>
+            <% if current_user.voted_up_on?(post) %>
+              <span class="dislike-<%= post.id %>">
+                <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
+              </span>
+            <% else %>
+              <span class="like-<%= post.id %>">
+                <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like'  %>
+              </span>
+            <% end %>
+          | <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="up-<%= post.id %>"><%= post.get_upvotes.size %></span>
+        <hr class ="divider">
         <div class="edit_and_delete_posts">
-        <% if post.user == current_user %>
-          <%= link_to edit_post_path(post) do %>
-            <span class="glyphicon glyphicon-pencil" data-toggle="popover" data-trigger="hover" data-content="Edit"></span>
-          <% end %>
-          <%= link_to post_path(post), method: :delete do %>
-            <span class="glyphicon glyphicon-trash" data-toggle="popover" data-trigger="hover" data-content="Delete"></span>
-          <% end %>
+          <div class="dropdown div-inline">
+            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Edit Post", edit_post_url(post) %></li>
+              <li><%= link_to "Delete Post", post_path(post), method: :delete %></li>
+            </ul>
+          </div>
         </div>
-          <div class='comments_div'> <br>
-            <%= render post.comments %>
+          <div class='comments_div'>
+             <%= render post.comments %>
           </div>
           <% if current_user %>
             <%= form_for [post, post.comments.new ], remote: true do |f| %>
@@ -44,20 +58,12 @@
             <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
           <% end %>
         <% end %>
-         <div class="name_and_time">
-          <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-          <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
-        </div>
         </div>
       </div>
-
-    </div>
   <% end %>
 <% else %>
     No posts have been added!
 <% end %>
-
-<p><%= link_to "Create a post", new_post_path %></p>
 
 <script>
 $(document).ready(function(){
