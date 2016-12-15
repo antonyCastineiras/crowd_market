@@ -56,6 +56,12 @@ ActiveRecord::Schema.define(version: 20161215162029) do
     t.integer  "user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "card_token"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string   "text"
     t.datetime "created_at",         null: false
