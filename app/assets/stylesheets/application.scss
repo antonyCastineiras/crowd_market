@@ -29,10 +29,21 @@ body {
   background-color: #f4f1ec;
 }
 
+#top {
+  height: 50px;
+}
+
+#top .container {
+  height: 100%;
+}
+
 #logo {
   font-size: 200%;
-  clear: left;
-  float: left;
+  display: inline-block;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 5px;
+  vertical-align: middle;
 }
 
 .navbar-nav {
@@ -188,18 +199,43 @@ body {
 	Seller Profile page styles
 =======================
 */
+.seller_header {
+  width: 75%;
+  float: right;
+  padding: none;
+  border-bottom: 1px solid grey;
+  padding-bottom: 5px;
+}
+
+.seller_header h3 {
+  margin-top: 0;
+}
+
 .seller_profile_aside {
   float: left;
-  width: 20%;
-  border-right: solid grey;
+  width: 25%;
+  border-right: 1px solid grey;
   height: 1500px;
+}
 
+.seller_profile_aside div {
+  width: 100%;
 }
 
 .products-container {
-  width: 80%;
+  width: 75%;
   float: right;
   padding: none;
+  margin-top: 10px;
+
+}
+
+.products-container h2 {
+  margin-top: 0;
+}
+
+.listed {
+  margin-top: 0;
 }
 
 .product-row {
