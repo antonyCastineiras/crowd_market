@@ -15,9 +15,18 @@
  @import "bootstrap";
  @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Lato');
  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Source+Sans+Pro');
+
+/* Font sizes to be used with BootStrap Glyphicons */
+
+.gi-2x{font-size: 10px;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
 body {
   padding-top: 100px;
   font-family: 'Roboto Condensed', sans-serif;
+  background-color: #f4f1ec;
 }
 
 #logo {
@@ -49,8 +58,15 @@ body {
     padding-right: 5px;
 }
 
-#comment {
-  color: dodgerblue
+.comment_time {
+  font-size: 11.5px;
+}
+
+.divider {
+  height:1px;
+  border:none;
+  color:#333;
+  background-color:#D7D3D3
 }
 
 .div-inline {
@@ -72,9 +88,6 @@ body {
   post styles
 ===========*/
 
-.newsfeed .well > * {
-  padding: 10px 0 5px;
-}
 
 /*=====================
 		Profile page styles
