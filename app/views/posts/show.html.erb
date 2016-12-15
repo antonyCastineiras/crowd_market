@@ -46,16 +46,18 @@
           <span class="up-<%= @post.id %>"><%= @post.get_upvotes.size %></span>
         <% end %>
         <hr class ="divider">
-        <div class="edit_and_delete_posts">
-          <div class="dropdown div-inline">
-            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Edit Post", edit_post_url(@post) %></li>
-              <li><%= link_to "Delete Post", post_path(@post), method: :delete %></li>
-            </ul>
+        <% if @post.user == current_user %>
+          <div class="edit_and_delete_posts">
+            <div class="dropdown div-inline">
+              <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Edit Post", edit_post_url(@post) %></li>
+                <li><%= link_to "Delete Post", post_path(@post), method: :delete %></li>
+              </ul>
+            </div>
           </div>
-        </div>
+        <% end %>
           <div class='comments_div'>
             <%= render @post.comments %>
           </div>
