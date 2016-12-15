@@ -41,6 +41,11 @@ body {
   font-family: 'Indie Flower', cursive;
 }
 
+.intro_message {
+  color: gray;
+  text-align: center;
+}
+
 .newsfeed {
   margin: auto;
   border-style: solid;
@@ -58,9 +63,33 @@ body {
     padding-right: 5px;
 }
 
-.comment_time {
+.comment_options {
   font-size: 11.5px;
+  margin-bottom: 100px;
+  color: gray;
 }
+/*
+.verticalLineLeft {
+  position: absolute;
+  border-right: 1px solid #CDC5C5;
+  top: 0;
+  bottom: 0;
+  padding-left: 220px;
+}
+
+.verticalLineRight {
+  position: absolute;
+  border-right: 1px solid #CDC5C5;
+  top: 0;
+  bottom: 0;
+  padding-left: 920px;
+}
+
+
+.comment_form {
+
+}
+*/
 
 .divider {
   height:1px;
