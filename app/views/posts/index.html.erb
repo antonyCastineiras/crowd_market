@@ -36,6 +36,7 @@
           | <span class="glyphicon glyphicon-thumbs-up"></span>
           <span class="up-<%= post.id %>"><%= post.get_upvotes.size %></span>
         <hr class ="divider">
+        <% end %>
 
         <% if current_user == post.user %>
           <div class="edit_and_delete_posts">
@@ -53,7 +54,7 @@
         <div class='comments_div'>
            <%= render post.comments %>
         </div>
-        
+
           <% if current_user %>
             <%= form_for [post, post.comments.new ], remote: true do |f| %>
               <%= f.text_area :text, placeholder: 'Add a comment' %>
@@ -62,7 +63,6 @@
           <% else%>
             <p>You need to <%= link_to "sign in", new_user_session_path %> to comment</p>
           <% end %>
-        <% end %>
         </div>
       </div>
   <% end %>
