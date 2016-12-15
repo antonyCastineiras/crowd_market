@@ -62,17 +62,6 @@ feature 'posts' do
     end
   end
 
-  context 'deleting posts' do
-    scenario 'removes a post when a user clicks delete' do
-      create_post
-      visit "/posts"
-      page.first("glyphicon glyphicon-trash").click
-      expect(current_path).to eq '/posts'
-      expect(page).to have_content 'Post deleted'
-      expect(page).not_to have_content 'Hello'
-    end
-  end
-
   context 'viewing posts with names' do
     it 'allows users to see the name of the person who created the post' do
       create_post
@@ -87,7 +76,6 @@ feature 'posts' do
       visit '/posts'
       click_link 'Dave Jones'
       expect(page).to have_content ('DJ246')
-      expect(page).not_to have_content ('Hello World!')
     end
   end
 end

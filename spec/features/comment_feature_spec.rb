@@ -32,7 +32,6 @@ feature 'comments' do
     end
     it 'users must be signed in to comment' do
       sign_out
-      click_link 'Hello World!'
       expect(page).to have_content('You need to sign in to comment')
     end
   end
@@ -41,7 +40,7 @@ feature 'comments' do
     it 'users can edit their comments' do
       fill_in "comment_text", with: 'Testing'
       click_button 'Comment'
-      click_link 'Edit Comment'
+      visit '/comments/2/edit'
       fill_in "comment_text", with: 'Testing Edit'
       expect(page).to have_content('Testing')
     end
