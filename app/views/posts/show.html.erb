@@ -29,7 +29,7 @@
         <% else %>
           <h4> <%= link_to @post.text, post_path(@post) %> </h4>
           <%= link_to post_path(@post) do %>
-            <p><%= image_tag @post.image.url(:medium) %></p>
+            
           <% end %>
         <% end %>
         <% if @user %>
