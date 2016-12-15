@@ -89,6 +89,7 @@
 	<div class="extras-div div-inline col-lg-3">
 		<p class="text-center"><%= @user.full_name %>'s Friends</p>
 		<% @user.friends.each do |friend| %>
+			<% time = Time.new %>
 			<div class="user-friend-container col-xs-6 col-lg-4 text-center">
 				<% if friend.has_image? %>
 					<%= image_tag(friend.images.first.file(:thumbnail), class: "user-profile-image col-md-12") %>
@@ -96,6 +97,11 @@
 					<%= image_tag("default_user_image.png", size: "50", class: "user-profile-image col-md-12") %>
 				<% end %>
 				<span><%= link_to "#{friend.full_name}", user_profile_path(friend) %></span>
+				<% if friend.last_seen > (time - 300) %>
+					<span class="online-symbol"></span>
+				<% else %>
+					<span class="offline-symbol"></span>
+				<% end %>
 				<%= link_to "Remove Friend", user_friendship_delete_path(current_user,friend) if @user == current_user %>
 			</div>
 		<% end %>

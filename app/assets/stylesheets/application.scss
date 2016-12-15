@@ -160,6 +160,21 @@ body {
   height: 500px;
 }
 
+.online-symbol, .offline-symbol {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.online-symbol {
+  background-color: #61b329;
+}
+
+.offline-symbol {
+  background-color: #cd0000;
+}
+
 /*=====================
 	Seller Profile page styles
 =======================
