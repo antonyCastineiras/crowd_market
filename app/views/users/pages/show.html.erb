@@ -1,92 +1,101 @@
-
-<div class="row">
-    <% if current_user %>
-        <div class="signed-in-header col-lg-12">
-            <ul class="nav navbar-nav">
-                <li class="add-friend">
-                    <%= form_tag(user_friendships_path(current_user), :class => "add-friend-form") do %>
-                        <div class="field">
-                            <%= label_tag  :friend_email, "Friends Email" %></i><br />
-                            <%= email_field_tag :friend_email, nil, :placeholder => "Enter friends email", :required => true  %> <br />
-                        </div>
-                        <div class="actions">
-                            <%= submit_tag "Add Friend" %>
-                        </div>
-                    <% end %>
-                </li>
-            </ul>
-        </div>
-    <% end %>
+<div class="col-sm-4">
+	<span class="pull-left">
+ 		<% if @user.has_image? %>
+ 			<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>
+ 		<% else %>
+ 			<%= image_tag("default_user_image.png", size: "200", class: "user-profile-image") %>
+ 		<% end %>
+		<h1><%= link_to @user.full_name, edit_user_registration_path%></h1>
+ 			<h3><%= @user.username %></h3>
+ 		<% if @user == current_user %>
+ 			<a href="" id="upload-image-link">Upload an image?</a>
+ 			<div id="upload-image-form-container">
+ 				<%= form_for(@image, url: user_images_path(current_user), html: { multipart: true }) do |form| %>
+ 					<div class="field">
+ 						<%= form.label :file %> <i>(choose an image)</i><br />
+ 						<%= form.file_field :file %> <br />
+ 					</div>
+ 					<div class="actions">
+ 						<%= form.submit "Upload" %>
+ 					</div>
+ 					<% end %>
+ 			</div>
+ 		<% end %>
+	</span>
 </div>
-			<% if @user.has_image? %>
-				<%= image_tag(@user.images.first.file(:profile), class: "user-profile-image") %>
-			<% else %>
-				<%= image_tag("default_user_image.png", size: "200", class: "user-profile-image") %>
-			<% end %>
 
-			<h1><%= link_to @user.full_name, edit_user_registration_path%></h1>
-			<h3><%= @user.username %></h3>
-			<% if @user == current_user %>
-				<a href="" id="upload-image-link">Upload an image?</a>
-				<div id="upload-image-form-container">
-					<%= form_for(@image, url: user_images_path(current_user), html: { multipart: true }) do |form| %>
-						<div class="field">
-							<%= form.label :file %> <i>(choose an image)</i><br />
-							<%= form.file_field :file %> <br />
-						</div>
-						<div class="actions">
-							<%= form.submit "Upload" %>
-						</div>
-					<% end %>
-				</div>
-			<% end %>
-
-<% if current_user == @user %>
-	<h1> Recent posts of your friends:</h1>
-			<% @friends_posts[0..4].each do |post| %>
-				<div id="post_<%= post.id %>">
-
+ <div class="col-sm-4">
+	 <span class="pull-center">
+ 	<% if current_user == @user %>
+ 		<h1> Recent Activity: </h1>
+  		<% current_user.posts.reverse.each do |post| %>
+ 	 			<div id="post_<%= post.id %>" class="text-center">
 					<h2><%= link_to post.text, post_path(post) %></h2>
-							<%= link_to post_path(post) do %>
-								<% if post.image.exists? %>
-									<p><%= image_tag post.image.url(:medium) %></p>
-								<% end %>
-							<% end %>
+ 							<%= link_to post_path(post) do %>
+ 								<% if post.image.exists? %>
+ 									<p><%= image_tag post.image.url(:medium) %></p>
+ 								<% end %>
+ 							<% end %>
+						<a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+ 						<span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+ 					</div>
+ 				<% end %>
+ 	<% else %>
+ 				Posts submitted by the user: </h1>
+ 		 			<% @user.posts.reverse.each do |post| %>
+ 			 			<div id="post_<%= post.id %>" class="text-center">
+							<h2><%= link_to post.text, post_path(post) %></h2>
+ 						 		<%= link_to post_path(post) do %>
+ 							 <% if post.image.exists? %>
+ 								 <p><%= image_tag post.image.url(:medium) %></p>
+ 							 <% end %>
+ 						 <% end %>
+						 <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+ 					 	 <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+ 				 		 </div>
+ 		 		 <% end %>
+ 		<% end %>
+	</span>
+</div>
 
-					 	<a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-					 	<span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
-				 </div>
-			<% end %>
-	<% else %>
-		Posts submitted by the user: </h1>
-		 <% @user.posts.reverse.each do |post| %>
-			 <div id="post_<%= post.id %>" class="text-center">
+ <div class="col-sm-4">
+	 <span class="pull-right">
 
-				 <h2><%= link_to post.text, post_path(post) %></h2>
-						 <%= link_to post_path(post) do %>
-							 <% if post.image.exists? %>
-								 <p><%= image_tag post.image.url(:medium) %></p>
-							 <% end %>
-						 <% end %>
+     <% if current_user %>
+         <div class="signed-in-header col-lg-12">
+          <ul class="nav navbar-nav">
+          <li class="add-friend">
+          	<%= form_tag(user_friendships_path(current_user), :class => "add-friend-form") do %>
+              <div class="field">
+              	<%= label_tag  :friend_email, "Friends Email" %></i><br />
+                <%= email_field_tag :friend_email, nil, :placeholder => "Enter friends email", :required => true  %> <br />
+              </div>
+              <div class="actions">
+                <%= submit_tag "Add Friend" %>
+              </div>
+                <% end %>
+					</div>
+          </li>
+					<li>
+					<span class="users_friends">
+			 		 	<p><%= @user.full_name %>'s Friends</p>
+			 		 		<% @user.friends.each do |friend| %>
+			 					<% if friend.has_image? %>
+			 				 		<%= image_tag(friend.images.first.file(:thumbnail), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50") %>
+			 				 <% else %>
+			 					 <%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %>
+			 				 <% end %>
+			 				 <%= link_to "#{friend.full_name}", user_profile_path(friend) %>
+			 				 <%= link_to "Remove Friend", user_friendship_delete_path(current_user,friend) if @user == current_user %>
+			 				 <% end %>
+					</span>
+	</span>
+			</li>
+				 	</ul>
+         </div>
+     <% end %>
 
-					 <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-					 <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
-				</div>
-		 <% end %>
-<% end %>
-
-		<p><%= @user.full_name %>'s Friends</p>
-		<% @user.friends.each do |friend| %>
-
-				<% if friend.has_image? %>
-					<%= image_tag(friend.images.first.file(:thumbnail), class: "user-profile-image col-md-12") %>
-				<% else %>
-					<%= image_tag("default_user_image.png", size: "50", class: "user-profile-image col-md-12") %>
-				<% end %>
-				<span><%= link_to "#{friend.full_name}", user_profile_path(friend) %></span>
-				<%= link_to "Remove Friend", user_friendship_delete_path(current_user,friend) if @user == current_user %>
-				<% end %>
-
+</div>
 
 <script>
 	$( function() {
