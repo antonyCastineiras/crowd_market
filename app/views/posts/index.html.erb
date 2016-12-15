@@ -4,15 +4,15 @@
       <div class ="newsfeed">
         <div class="well">
           <% if post.user.has_image? %>
-            <div class="profile_pic"><%= image_tag post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-          <% else %>
-            <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
-          <% end %>
-        <div class="name_and_time">
-          <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
-          <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
-        </div><br />
-        <% if !post.image.exists? %>
+           <div class="profile_pic"><%= image_tag post.user.images.first.file(:profile), class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+         <% else %>
+           <div class ="profile_pic"><%= image_tag "default_user_image.png",class: "img-thumbnail", alt: "Cinque Terre", width: "50", height: "50" %></div>
+         <% end %>
+       <div class="name_and_time">
+         <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+         <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+       </div><br />
+        <% unless post.image.exists? %>
           <h4> <%= post.text %> </h4>
         <% else %>
           <h4> <%= link_to post.text, post_path(post) %> </h4>
@@ -22,12 +22,16 @@
         <% end %>
         <% if @user %>
           <% if current_user.voted_up_on?(post) %>
-            <%= link_to "Unlike", dislike_post_path(post), method: :put %>
-          <% else %>
-            <%= link_to "Like", like_post_path(post), method: :put %>
-          <% end %>
+            <span class="dislike-<%= post.id %>">
+              <%= link_to "Unlike", dislike_post_path(post), method: :put, remote: true, class: 'dislike' %>
+            </span>
+            <% else %>
+            <span class="like-<%= post.id %>">
+              <%= link_to "Like", like_post_path(post), method: :put, remote: true, class: 'like'  %>
+            </span>
+            <% end %>
           | <span class="glyphicon glyphicon-thumbs-up"></span>
-        <%= "#{post.get_upvotes.size} " %>
+          <span class="up-<%= post.id %>"><%= post.get_upvotes.size %></span>
         <hr class ="divider">
         <div class="edit_and_delete_posts">
           <div class="dropdown div-inline">
@@ -40,7 +44,7 @@
           </div>
         </div>
           <div class='comments_div'>
-            <%= render post.comments %>
+             <%= render post.comments %>
           </div>
           <% if current_user %>
             <%= form_for [post, post.comments.new ], remote: true do |f| %>
@@ -53,7 +57,6 @@
         <% end %>
         </div>
       </div>
-    </div>
   <% end %>
 <% else %>
     No posts have been added!

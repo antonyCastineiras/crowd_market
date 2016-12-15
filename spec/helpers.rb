@@ -41,6 +41,7 @@ def create_post
   visit '/posts'
   click_link 'Create a post'
   fill_in 'Text', with: 'Hello World!'
+  attach_file('post[image]', './app/assets/images/practice_image.jpg')
   click_button 'Create Post'
 end
 
@@ -59,3 +60,24 @@ def sign_out
   click_link 'Sign out'
 end
 
+def add_product
+  click_link 'Add a product'
+  fill_in 'product[product_name]', with: 'Product'
+  fill_in 'product[product_description]', with: 'Product description'
+  fill_in 'product[price]', with: '500'
+  fill_in 'product[sellers_fee]', with: '2'
+  click_button 'Add Product'
+end
+
+def add_friend
+  friend = User.create(email: "test2@test.com", password: "password", password_confirmation: "password")
+  fill_in 'friend_email', with: friend.email
+  click_button('Add Friend')
+  click_link('Sign out')
+  visit('/users/sign_in')
+  fill_in 'Email', with: friend.email
+  fill_in 'Password', with: friend.password
+  click_button("Log in")
+  click_link("Friend Requests")
+  click_link("Accept Request")
+end

@@ -50,9 +50,41 @@
 
 	</div>
 
-	<div class="profile_feed div-inline col-xs-12 col-sm-6 col-lg-6">
-		<h1 class="text-center">POSTS / ADS GO HERE</h1>
-	</div>
+<% if current_user == @user %>
+	<h1 class="text-center">Recent posts of your friends:</h1>
+			<% @friends_posts[0..4].each do |post| %>
+				<div id="post_<%= post.id %>" class="text-center">
+				<div class ="newsfeed">
+					<h2><%= link_to post.text, post_path(post) %></h2>
+							<%= link_to post_path(post) do %>
+								<% if post.image.exists? %>
+									<p><%= image_tag post.image.url(:medium) %></p>
+								<% end %>
+							<% end %>
+					<div class="name_and_time">
+					 	<a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+					 	<span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+				 </div>
+			 </div>
+			<% end %>
+	<% else %>
+		<h1 class="text-center"> Posts submitted by the user: </h1>
+		 <% @user.posts.reverse.each do |post| %>
+			 <div id="post_<%= post.id %>" class="text-center">
+			 <div class ="newsfeed">
+				 <h2><%= link_to post.text, post_path(post) %></h2>
+						 <%= link_to post_path(post) do %>
+							 <% if post.image.exists? %>
+								 <p><%= image_tag post.image.url(:medium) %></p>
+							 <% end %>
+						 <% end %>
+				 <div class="name_and_time">
+					 <a href="/users/<%= post.user.id %>/show"><%= post.user.first_name %> <%= post.user.last_name %></a><br>
+					 <span><%= post.created_at.strftime("%d %b %Y %H:%M") %></span>
+				</div>
+			</div>
+		 <% end %>
+<% end %>
 
 	<div class="extras-div div-inline col-lg-3">
 		<p class="text-center"><%= @user.full_name %>'s Friends</p>

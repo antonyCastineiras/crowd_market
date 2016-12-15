@@ -1,0 +1,108 @@
+<ul id="sign-in-tabs" class="nav">
+	<li><a href="" class="tablinks active" onclick="displayForm(event,'user-form')">Sign up as User</a></li>
+	<li><a href="" class="tablinks" onclick="displayForm(event,'seller-form')">Sign up as Seller</a></li>
+</ul>
+
+<div id="user-form" class="tab-content">
+  <h2>Sign up as User</h2>
+
+	<%= form_for User.new, as: :user, :url => registration_path(:user) do |f| %>
+
+		<div class="field">
+	    <%= f.label :first_name %><br />
+	    <%= f.text_field :first_name, autofocus: true %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :last_name %><br />
+	    <%= f.text_field :last_name %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :username %><br />
+	    <%= f.text_field :username %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :email %><br />
+	    <%= f.email_field :email %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :password %>
+	    <% if @minimum_password_length %>
+	    <em>(<%= @minimum_password_length %> characters minimum)</em>
+	    <% end %><br />
+	    <%= f.password_field :password, autocomplete: "off" %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :password_confirmation %><br />
+	    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+	  </div>
+
+	  <div class="actions">
+	    <%= f.submit "Sign up" %>
+	  </div>
+	<% end %>
+
+</div>
+
+<div id="seller-form" class="tab-content">
+  <h2>Sign up as Seller</h2>
+
+  <%= form_for Seller.new, as: :seller, :url => registration_path(:seller) do |f| %>
+
+		<div class="field">
+			<%= f.label :shop_name %><br />
+			<%= f.text_field :shop_name, autofocus: true %>
+		</div>
+
+		<div class="field">
+			<%= f.label :first_name %><br />
+			<%= f.text_field :first_name, autofocus: true %>
+		</div>
+
+		<div class="field">
+			<%= f.label :last_name %><br />
+			<%= f.text_field :last_name %>
+		</div>
+
+		<div class="field">
+			<%= f.label :email %><br />
+			<%= f.email_field :email %>
+		</div>
+
+		<div class="field">
+			<%= f.label :password %>
+			<% if @minimum_password_length %>
+			<em>(<%= @minimum_password_length %> characters minimum)</em>
+			<% end %><br />
+			<%= f.password_field :password, autocomplete: "off" %>
+		</div>
+
+		<div class="field">
+			<%= f.label :password_confirmation %><br />
+			<%= f.password_field :password_confirmation, autocomplete: "off" %>
+		</div>
+
+		<div class="actions">
+			<%= f.submit "Sign up" %>
+		</div>
+	<% end %>
+</div>
+
+
+<script>
+$().ready(function() {
+	$('#user-form').show();
+});
+
+	function displayForm(event,formId) {
+		event.preventDefault();
+		$('.tablinks').removeClass('active');
+		$(event.target).addClass('active');
+		$('.tab-content').hide();
+		$('#'+formId).show();
+	}
+</script>
