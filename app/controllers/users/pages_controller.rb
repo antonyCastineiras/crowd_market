@@ -1,13 +1,7 @@
 class Users::PagesController < ApplicationController
 
   def show
-    @friends_posts = []
     User.find(params[:id]) == current_user ? @user = current_user : @user = User.find(params[:id])
-    if current_user
-      get_posts_from_friends
-    elsif @user
-      p "f"
-    end
     @image = Image.new
     @friendship = Friendship.new
   end
@@ -21,15 +15,6 @@ class Users::PagesController < ApplicationController
 
   def page_params
   	params.require(:page).permit(:id)
-  end
-
-  def get_posts_from_friends
-    current_user.friends.each do |friend|
-      friend.posts.each do |post|
-        @friends_posts.push(post)
-      end
-    end
-    @friends_posts = @friends_posts.sort_by { |post| [post.created_at, post.updated_at].max }.reverse!
   end
 
 end
