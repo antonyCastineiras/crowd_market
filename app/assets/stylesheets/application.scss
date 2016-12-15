@@ -369,6 +369,110 @@ body {
   height: 100px;
 }
 
+/*================
+  sign_up styles
+================*/
+.signup-bg {
+  background-image: url(https://grouptoursbooking.com/wp-content/uploads/2016/08/Cai-Rang-Floating-Market-Vietnam-Travel.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.signin-bg {
+  background-image: url(http://wallpapercave.com/wp/wIyKjjQ.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#user-form div {
+
+}
+
+.flip-container {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:400px;
+}
+
+.flip {
+    backface-visibility:             hidden;
+        -moz-backface-visibility:    hidden;
+        -ms-backface-visibility:     hidden;
+        -o-backface-visibility:      hidden;
+        -webkit-backface-visibility: hidden;
+    border: 1px solid grey;
+    border-radius: 15px 50px;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font: normal 14px helvetica, arial, san serif;
+    padding: 10px;
+    position: absolute;
+    transform-origin:             50% 50% 0px;
+        -moz-transform-origin:    50% 50% 0px;
+        -ms-transform-origin:     50% 50% 0px;
+        -o-transform-origin:      50% 50% 0px;
+        -webkit-transform-origin: 50% 50% 0px;
+    transition: all 1s;
+        -moz-transition:    all 1s;
+        -ms-transition:     all 1s;
+        -o-transition:      all 1s;
+        -webkit-transition: all 1s;
+    display: flex;
+    justify-content: center;
+    width:40%;
+    z-index: 100;
+    background-color: #f4f1ec;
+    opacity: 0.9;
+  }
+
+#side-1 {
+    transform:             rotateY( 0deg );
+        -moz-transform:    rotateY( 0deg );
+        -ms-transform:     rotateY( 0deg );
+        -o-transform:      rotateY( 0deg );
+        -webkit-transform: rotateY( 0deg );
+}
+
+#side-2 {
+    transform:             rotateY( 180deg );
+        -moz-transform:    rotateY( 180deg );
+        -ms-transform:     rotateY( 180deg );
+        -o-transform:      rotateY( 180deg );
+        -webkit-transform: rotateY( 180deg );
+}
+
+.flip-side-1 {
+    transform:             rotateY( 0deg ) !important;
+        -moz-transform:    rotateY( 0deg ) !important;
+        -ms-transform:     rotateY( 0deg ) !important;
+        -o-transform:      rotateY( 0deg ) !important;
+        -webkit-transform: rotateY( 0deg ) !important;
+}
+
+.flip-side-2 {
+    transform:             rotateY( 180deg ) !important;
+        -moz-transform:    rotateY( 180deg ) !important;
+        -ms-transform:     rotateY( 180deg ) !important;
+        -o-transform:      rotateY( 180deg ) !important;
+        -webkit-transform: rotateY( 180deg ) !important;
+}
+
+input {
+    display: block;
+    margin: 3px 0;
+    width: 294px;
+}
+
+#login {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    display: block;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+    width: 50px;
+
 .product-name {
   position: absolute;
   top: 100%;
@@ -387,7 +491,7 @@ body {
   right: 0;
   bottom: 0;
   width: 100%;
-  hight: 100%;
+  height: 100%;
 }
 
 
