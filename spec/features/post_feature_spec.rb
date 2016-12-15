@@ -62,6 +62,7 @@ feature 'posts' do
     end
   end
 
+
   context 'viewing posts with names' do
     it 'allows users to see the name of the person who created the post' do
       create_post

@@ -36,11 +36,10 @@ feature 'Profile page' do
     end
   end
 
-  context 'User can see recent activity in user profile' do
-    it 'should display friends posts' do
+  context 'User can see recent posts in user profile' do
+    it 'should display your posts' do
       create_post
       click_link 'Profile'
-      add_friend
       expect(page).to have_content('Hello World!')
     end
   end
