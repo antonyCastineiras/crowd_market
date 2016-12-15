@@ -38,10 +38,10 @@
 					<%= form_for(@image, url: user_images_path(current_user), html: { multipart: true }) do |form| %>
 						<div class="field">
 							<%= form.label :file %> <i>(choose an image)</i><br />
-							<%= form.file_field :file %> <br />
+							<%= form.file_field :file, id: 'file-field' %> <br />
 						</div>
 						<div class="actions">
-							<%= form.submit "Upload" %>
+							<%= form.submit "Upload", id: "upload-image-button", disabled: true %>
 						</div>
 					<% end %>
 				</div>
@@ -112,5 +112,9 @@
 	$('#upload-image-link').click(function(event) {
 		event.preventDefault();
 		$('#upload-image-form-container').toggle();
+	});
+
+	$('#file-field').change(function() {
+		$('#upload-image-button').prop('disabled', false);		
 	});
 </script>

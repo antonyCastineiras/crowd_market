@@ -1,5 +1,2 @@
-<h2>Thanks, you paid <strong>$5.00</strong>!</h2>
+<h2>Thanks, you paid <strong>£<%= (params[:amount].to_i / 100).to_f %></strong>!</h2>
 
-
-PUBLISHABLE_KEY=pk_test_7xG2pHklCVo004Jmt2jZMsCP \
-SECRET_KEY=sk_test_Rodps1hza8pL1514NgFtsrsg rails s

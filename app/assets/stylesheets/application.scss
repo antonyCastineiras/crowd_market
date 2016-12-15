@@ -294,11 +294,33 @@ body {
   box-shadow: 2px 1px 6px #a0a0a0;
 }
 
-#overlay {
-
+.user-ad {
+  position: absolute;
 }
 
-#canvas {
+
+.user-ad:hover {
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+.overlay, #post-image {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hidden-overlay {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#canvas, #post-image {
   background-image: url('practice_image.jpg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -450,4 +472,34 @@ input {
     text-align: center;
     text-decoration: none;
     width: 50px;
+
+.product-name {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #000;
+  display: block;
+  color: #fff;
+  padding: 5px 12px;
+  margin-top: 7px;
+}
+
+.buy-product-through-ad-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =================
+  buy product styles
+==================*/
+
+.buy-product-image {
+  width: 100%;
+  height: auto;
 }
