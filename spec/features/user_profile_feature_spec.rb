@@ -28,13 +28,11 @@ feature 'Profile page' do
 
   context 'User has edited user profile' do
     it "should be possible to edit user profile" do
-      click_link 'Testy Tester'
+      click_link 'Edit profile'
       fill_in('user_first_name', with: "Test")
       fill_in('Current password', with: "password")
       click_button "Update"
       expect(page).to have_content("Your account has been updated successfully.")
-      click_link 'Profile'
-      expect(page).to have_link('Test Tester')
     end
   end
 
