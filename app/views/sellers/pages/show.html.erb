@@ -1,50 +1,56 @@
-<%= current_seller.email %>
-
-<a href="" id="add-product-link">Add a product</a>
-
-<div id="new-product-form">
-	<%= form_for @product, :url => seller_products_path(current_seller) do |f| %>
-		<div class="field">
-			<%= f.text_field :product_name, :placeholder => "Product name" %>
-		</div>
-		<div class="field">
-			<%= f.text_area :product_description, :placeholder => "Product description" %>
-		</div>
-		<div class="field">
-			<%= f.number_field :price, step: "0.01", :placeholder => "price(0.00)" %>
-		</div>
-		<div class="field">
-			<%= f.number_field :sellers_fee, max: 100, step: "0.01", :placeholder => "fee(0.00%)" %>
-		</div>
-		<div class="field">
-			<%= f.file_field :image %>
-		</div>
-		<div class="actions">
-	    <%= f.submit "Add Product" %>
-	  </div>
-	<% end %>
+<div class="seller_profile_aside">
+	<h2><%= current_seller.shop_name %></h2>
+	<h3><%= current_seller.email %></h3>
 </div>
 
-<ul id="currently-listed-products">
-
+<div class="products-container container">
 	<h2>Products your shop has listed:</h2>
-
-	<% @seller.products.each do |product| %>
-		<li>
-			<h3><%= product.product_name %></h3>
-			<p><%= product.product_description %></p>
-			<p>Price: £<%= product.price %></p>
-			<p>Current sellers fee: <%= product.sellers_fee %></p>
-			<% if product.has_image? %>
-				<p><%= image_tag product.image.url(:medium) %></p>
+	<a href="" id="add-product-link">Add a product</a>
+		<div id="new-product-form">
+			<%= form_for @product, :url => seller_products_path(current_seller) do |f| %>
+				<div class="form-group">
+					<%= f.text_field :product_name, class: "form-control", :placeholder => "Product name" %>
+				</div>
+				<div class="form-group">
+					<%= f.text_area :product_description, class: "form-control", :placeholder => "Product description" %>
+				</div>
+				<div class="form-group">
+					<%= f.number_field :price, step: "0.01", class: "form-control", :placeholder => "price(0.00)" %>
+				</div>
+				<div class="form-group">
+					<%= f.number_field :sellers_fee, max: 100, step: "0.01", class: "form-control", :placeholder => "fee(0.00%)" %>
+				</div>
+				<div class="form-group">
+					<%= f.file_field :image %>
+				</div>
+				<div class="actions">
+			    <%= f.submit "Add Product", class: "btn btn-primary" %>
+			  </div>
 			<% end %>
-			<% if current_seller == Seller.find(params[:id]) %>
-				<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
-				<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
-			<% end %>
-		</li>
-	<% end %>
-</ul>
+		</div>
+		<br>
+		<div class="product-row row">
+				<% @seller.products.each do |product| %>
+					<div class="product-div panel panel-primary col-md-4">
+						<div class="panel-heading"><h4><%= product.product_name %></h4></div>
+						<div class="panel-body">
+						<p><%= product.product_description %></p>
+						<p>Price: £<%= product.price %></p>
+						<p>Current sellers fee: <%= product.sellers_fee %></p>
+						<% if product.has_image? %>
+							<div class="product-image"><%= image_tag product.image.url %></div>
+						<% end %>
+						<% if current_seller == Seller.find(params[:id]) %>
+							<span class="seller-options">
+							<%= link_to "Update this product", edit_seller_product_path(current_seller,product) %>
+							<%= link_to "Remove this product", seller_product_path(current_seller,product), method: :delete %>
+						</span>
+					</div>
+						<% end %>
+					</div>
+				<% end %>
+		</div>
+</div>
 
 
 <script>
