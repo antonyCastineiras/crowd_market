@@ -10,11 +10,11 @@
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
+    <header id="top" class="navbar navbar-fixed-top navbar-inverse">
      <div class="container">
-       <%= link_to "CrowdMarket", '/', id: "logo" %>
-       <nav>
-         <ul class="nav navbar-nav navbar-right">
+        <%= link_to "CrowdMarket", '/', id: "logo", class: "pull-left" %> 
+        <nav>
+         <ul class="nav navbar-nav navbar-right pull-right">
           <li><%= link_to "Home", '/'   %></li>
           <% if current_user || current_seller %>
             <% if current_user %>
