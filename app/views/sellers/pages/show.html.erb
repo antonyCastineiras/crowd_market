@@ -1,6 +1,11 @@
 <div class="seller_profile_aside">
-	<h2><%= current_seller.shop_name %></h2>
-	<h3><%= current_seller.email %></h3>
+	<%= render "aside" %>
+</div>
+
+<div class="seller_header container">
+	<h3>Shop Details</h3>
+	<p>Shop Name: <%= @seller.shop_name %></p>
+	<p>Email: <%= @seller.email %></p>
 </div>
 
 <div class="products-container container">
