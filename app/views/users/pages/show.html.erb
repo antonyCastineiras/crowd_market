@@ -9,11 +9,11 @@
 			<h3><%= @user.full_name %></h3>
 
 		<% if current_user == @user %>
-			<h1><%= link_to "Edit profile", edit_user_registration_path%></h1>
+			<p><%= link_to "Edit Profile", edit_user_registration_path%></p>
 		<% end %>
 
  		<% if @user == current_user %>
- 			<a href="" id="upload-image-link">Upload an image?</a>
+ 			<a href="" id="upload-image-link">Change your Profile Picture</a>
  			<div id="upload-image-form-container">
  				<%= form_for(@image, url: user_images_path(current_user), html: { multipart: true }) do |form| %>
  					<div class="field">
@@ -75,11 +75,11 @@
 						<li class="add-friend">
 							<%= form_tag(user_friendships_path(current_user), :class => "add-friend-form") do %>
 								<div class="field">
-									<%= label_tag  :friend_email, "Friends Email" %></i><br />
+									<%= label_tag  :friend_email, "Add Friend" %></i><br />
 									<%= email_field_tag :friend_email, nil, :placeholder => "Enter friends email", :required => true  %> <br />
 								</div>
 								<div class="actions">
-									<%= submit_tag "Add Friend" %>
+									<%= submit_tag "Send Friend Request" %>
 								</div>
 							<% end %>
 						</li>
