@@ -9,7 +9,6 @@ feature 'posts' do
   context 'no posts have yet been created' do
     scenario 'should display create a post' do
       visit '/posts'
-      expect(page).to have_content 'No posts have been added!'
       expect(page).to have_link 'Create a post'
     end
   end
