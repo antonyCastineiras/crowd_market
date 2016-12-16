@@ -7,9 +7,11 @@
  		<% end %>
 		<div class="profile_name">
 			<h3><%= @user.full_name %></h3>
+
 		<% if current_user == @user %>
 			<h1><%= link_to "Edit profile", edit_user_registration_path%></h1>
 		<% end %>
+
  		<% if @user == current_user %>
  			<a href="" id="upload-image-link">Upload an image?</a>
  			<div id="upload-image-form-container">
@@ -20,11 +22,11 @@
  					</div>
  					<div class="actions">
  						<%= form.submit "Upload" %>
-			</div>
  					</div>
  					<% end %>
  			</div>
  		<% end %>
+	</div>
 	</span>
 </div>
 
